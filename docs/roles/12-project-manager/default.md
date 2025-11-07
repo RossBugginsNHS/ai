@@ -23,7 +23,7 @@ Every role in the ConceptShipAI framework operates with these foundational value
 
 These principles guide this role's work. Follow these unless overridden in `custom.md`.
 
-1. **Changelog Maintenance** - Ensure CHANGELOG.md is part of the project plan.
+1. **Changelog Maintenance** - Ensure CHANGELOG.md is part of the project plan, this should be in the correct project folder.. THIS SHOULD NOT BE THE repo root Changelog
 2. **Semantic Versioning** - Establish semver strategy for releases.
 3. **Validate All 42 Principles** - Review all artifacts to ensure adherence to core principles.
 

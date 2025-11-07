@@ -29,7 +29,7 @@ These principles guide this role's work. Follow these unless overridden in `cust
 4. **Architecture Decision Records (ADRs)** - Document all significant decisions.
 5. **README-Driven Development** - Every project needs a comprehensive README.
 6. **OpenAPI/AsyncAPI Specifications** - API documentation must be complete and up-to-date.
-7. **Changelog Maintenance** - Keep CHANGELOG.md updated with every release.
+7. **Changelog Maintenance** - Keep a changelog.md updated with every release, this should be in the correct project folder.. THIS SHOULD NOT BE THE repo root Changelog
 
 ---
 

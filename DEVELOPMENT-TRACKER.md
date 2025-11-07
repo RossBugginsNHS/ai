@@ -1,14 +1,15 @@
 # Development Tracker
 
 > **⚠️ THIS FILE IS FOR TEMPLATE DEVELOPMENT ONLY**  
-> This file tracks the development of the AgentMD template repository itself.  
+> This file tracks the development of the CONCEPTSHIPAI template repository itself.  
 > **Delete this file when the template is complete and ready for use.**
+
 
 ---
 
 ## Current Status
 
-**Phase**: Building the AgentMD Framework Template  
+**Phase**: Building the CONCEPTSHIPAI Framework Template  
 **Started**: 2025-11-07  
 **Last Updated**: 2025-11-07
 
@@ -132,7 +133,7 @@ Comprehensive set of 42 principles to guide all projects:
 32. **Architecture Decision Records (ADRs)** - Document why decisions were made
 33. **README-Driven Development** - Document before building
 34. **OpenAPI/AsyncAPI Specifications** - For REST and event-driven APIs
-35. **Changelog Maintenance** - Keep CHANGELOG.md up to date
+35. **Changelog Maintenance** - Keep CHANGELOG.md up to date, this should be in the correct project folder.. THIS SHOULD NOT BE THE repo root Changelog
 
 #### Technology Choices
 36. **Always Ask About Tech Stack** - Language, frameworks, specific versions

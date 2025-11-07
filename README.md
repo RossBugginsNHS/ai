@@ -374,7 +374,7 @@ Any AI agent that can read files, write files, and follow instructions - Claude,
 
 ## Contributing
 
-This is an NHS Digital project. Contributions welcome! See [CHANGELOG.md](CHANGELOG.md) for recent changes.
+This is an NHS Digital project. Contributions welcome! 
 
 ## License
 

@@ -1,8 +1,13 @@
-# AgentMD v2.0 - Conversational Workflow System
+# ConceptShipAI Changelog
+
+> **⚠️ THIS FILE IS FOR CONCEPTSHIPAI TEMPLATE DEVELOPMENT ONLY**  
+> This file tracks the development of the CONCEPTSHIPAI template repository itself.  
+> **Delete this file when the template is complete and ready for use.**
+
 
 ## Overview of Changes
 
-This document summarizes the restructuring of AgentMD from a file-based input system to a conversational, context-aware workflow system.
+This document summarizes the restructuring of ConceptShipAI from a file-based input system to a conversational, context-aware workflow system.
 
 ## Major Changes
 
