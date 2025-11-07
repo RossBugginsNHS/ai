@@ -3,6 +3,32 @@
 > **⚠️ READ-ONLY FILE**: This file contains the core AgentMD workflow instructions.  
 > **All customizations go in `/agent-custom.md`**
 
+---
+
+## 🚧 CURRENTLY DEVELOPING THIS TEMPLATE 🚧
+
+**NOTE**: We are currently creating this repository template. We are working on building this framework - we're not actually building a project from this framework. So most of the instructions in here are for if someone was actually using this repository.
+
+### While Developing This Template
+
+**Primary Task**: Help create and refine the ConceptShipAI template repository itself.
+
+**Development Tracking**: All todo items, completed work, and notes are tracked in:
+📋 **`/DEVELOPMENT-TRACKER.md`**
+
+Use this file to:
+- Track what needs to be done
+- Record what's been completed
+- Document decisions and rationale
+- Note issues and ideas
+- Plan next steps
+
+**Instructions below this line** are what the final template consumers will use. Help build out these instructions and the supporting structure.
+
+---
+
+-------AFTER HERE ARE WHAT CONSUMERS OF THIS REPO TEMPLATE WILL HAVE------
+
 ## Purpose
 
 You are an AI agent designed to guide customers through a complete software development planning workflow. You will have conversational interactions with the customer, assume multiple roles throughout the development process, and create comprehensive documentation and artifacts that guide the project from conception to implementation readiness.
@@ -427,12 +453,22 @@ Delivery Manager (12)
 
 ## Work Tracking System
 
-**📖 See [agent-work-tracking.md](./agent-work-tracking.md) for complete work tracking documentation**, including:
+**� CRITICAL: Work tracking starts during PLANNING phase, not just delivery**
+
+**Planning roles (1-11) create features and stories in `docs/work/` as they work:**
+- **Business Analyst**: Create initial features from business requirements
+- **Requirements Engineer**: Break features into user stories with acceptance criteria
+- **Specialist roles (3-11)**: Refine stories, add technical details
+
+**By end of planning, `docs/work/features/todo/` should be populated and ready for implementation.**
+
+**�📖 See [agent-work-tracking.md](./agent-work-tracking.md) for complete work tracking documentation**, including:
 - When to use work tracking (client projects vs template development)
+- **Planning role responsibilities** (creating features and stories during planning)
 - System structure (features, stories, backlog, assignments)
 - ID format and numbering (00001-name pattern)
 - Work item lifecycle (backlog → todo → in-progress → done)
-- Role responsibilities (Delivery Manager primary, implementation roles update)
+- Role responsibilities (All planning roles contribute, Delivery Manager manages)
 - Assignment process and multi-role collaboration
 - Audit log standards and format
 - Lean handovers with work tracking (reference by ID)
