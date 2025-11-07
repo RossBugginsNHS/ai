@@ -114,10 +114,96 @@ The Frontend Developer implements user-facing features and interfaces. This role
 
 ### 3. Implement Feature
 
+**CRITICAL: Use the `create_file` tool to create all code files.**
+
+All code goes in `/projects/[project-name]/`:
+- Source code: `projects/[name]/src/`
+- Tests: `projects/[name]/tests/` or `projects/[name]/__tests__/`
+- Styles: `projects/[name]/src/` (colocated with components)
+
 **Actions**:
-1. Set up local development environment
-2. Create feature branch in git
-3. Write code incrementally:
+
+1. **Determine file to create/modify**
+   - Example: `projects/calculator-app/src/components/Calculator.jsx`
+   - Check if file exists (read it first if modifying)
+
+2. **Create feature branch in git**
+   ```bash
+   git checkout -b feature/story-00042-user-profile
+   ```
+
+3. **Write code using `create_file` tool**
+
+   **Example: Create a component**
+   ```javascript
+   // Call create_file tool with:
+   // Path: "projects/calculator-app/src/components/Calculator.jsx"
+   // Content:
+   import React, { useState } from 'react';
+   import './Calculator.css';
+   
+   export const Calculator = () => {
+     const [display, setDisplay] = useState('0');
+     
+     const handleNumberClick = (num) => {
+       setDisplay(display === '0' ? num : display + num);
+     };
+     
+     return (
+       <div className="calculator">
+         <div className="display">{display}</div>
+         <div className="buttons">
+           {/* Button grid */}
+         </div>
+       </div>
+     );
+   };
+   ```
+
+   **Example: Create styles**
+   ```css
+   // Call create_file tool with:
+   // Path: "projects/calculator-app/src/components/Calculator.css"
+   // Content:
+   .calculator {
+     max-width: 400px;
+     margin: 0 auto;
+     padding: 20px;
+   }
+   
+   .display {
+     background: #333;
+     color: #fff;
+     font-size: 2rem;
+     padding: 20px;
+     text-align: right;
+   }
+   ```
+
+4. **Write code incrementally**:
+   - Start with component structure
+   - Implement core functionality
+   - Add styling
+   - Connect to APIs (if needed)
+   - Handle edge cases
+   
+5. **Test locally as you code**
+   ```bash
+   cd projects/[project-name]
+   npm start  # or npm run dev
+   ```
+
+6. **Run linter and formatter**
+   ```bash
+   npm run lint
+   npm run format
+   ```
+
+7. **Commit frequently with clear messages**
+   ```bash
+   git add projects/[project-name]/src/components/Calculator.jsx
+   git commit -m "Add Calculator component - Story 00042"
+   ```
    - Start with component structure
    - Implement core functionality
    - Add styling
@@ -129,12 +215,45 @@ The Frontend Developer implements user-facing features and interfaces. This role
 
 ### 4. Write Tests
 
+**Use `create_file` tool for all test files.**
+
 **Actions**:
-1. Write unit tests for components
-2. Write integration tests for API connections
-3. Write E2E tests for critical user flows
-4. Ensure test coverage meets project standards
-5. Run full test suite locally
+
+1. **Create unit tests for components**
+
+   ```javascript
+   // Call create_file tool with:
+   // Path: "projects/calculator-app/tests/Calculator.test.jsx"
+   // Content:
+   import { render, screen, fireEvent } from '@testing-library/react';
+   import { Calculator } from '../src/components/Calculator';
+   
+   describe('Calculator', () => {
+     test('renders calculator display', () => {
+       render(<Calculator />);
+       expect(screen.getByText('0')).toBeInTheDocument();
+     });
+     
+     test('handles number click', () => {
+       render(<Calculator />);
+       fireEvent.click(screen.getByText('5'));
+       expect(screen.getByText('5')).toBeInTheDocument();
+     });
+   });
+   ```
+
+2. **Write integration tests for API connections** (if applicable)
+
+3. **Write E2E tests for critical user flows** (if applicable)
+
+4. **Ensure test coverage meets project standards**
+
+5. **Run full test suite locally**
+   ```bash
+   cd projects/[project-name]
+   npm test
+   npm run test:coverage
+   ```
 
 ### 5. Submit for Review
 

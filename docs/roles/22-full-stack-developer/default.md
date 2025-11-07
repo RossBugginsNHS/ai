@@ -134,29 +134,139 @@ The Full-Stack Developer implements complete features from frontend to backend. 
 
 ### 3. Implement Backend (if backend-first or parallel)
 
+**CRITICAL: Use the `create_file` tool to create all code files.**
+
+Backend code goes in: `projects/[name]/src/` or `projects/backend/src/`
+
 **Actions**:
 
-1. Set up local development environment
-2. Create feature branch
-3. Write database migrations if needed
-4. Implement API endpoints
-5. Implement business logic
-6. Write backend tests
-7. Test API with Postman/curl
-8. Commit backend changes
+1. **Create feature branch**
+   ```bash
+   git checkout -b feature/story-00042-complete-profile-feature
+   ```
+
+2. **Write database migrations if needed (use create_file)**
+   
+   Example path: `projects/backend/migrations/001_add_profiles_table.py`
+
+3. **Implement API endpoints (use create_file)**
+   
+   ```python
+   // Call create_file tool with:
+   // Path: "projects/backend/src/routes/profiles.py"
+   // Content:
+   from fastapi import APIRouter
+   
+   router = APIRouter()
+   
+   @router.get("/users/{user_id}/profile")
+   async def get_profile(user_id: int):
+       profile = await db.profiles.get(user_id)
+       return profile
+   ```
+
+4. **Implement business logic**
+   - Validation
+   - Error handling
+   - Logging
+
+5. **Write backend tests (use create_file)**
+   
+   Example path: `projects/backend/tests/test_profiles.py`
+
+6. **Test API with Postman/curl**
+   ```bash
+   curl http://localhost:8000/users/123/profile
+   ```
+
+7. **Commit backend changes**
+   ```bash
+   git add projects/backend/
+   git commit -m "Add profile endpoints - Story 00042 (backend)"
+   ```
 
 ### 4. Implement Frontend (if frontend-first or parallel)
 
+**Use `create_file` tool for all frontend code.**
+
+Frontend code goes in: `projects/[name]/src/` or `projects/frontend/src/`
+
 **Actions**:
 
-1. Create/update UI components
-2. Implement client-side logic
-3. Connect to API endpoints
-4. Add styling
-5. Handle loading and error states
-6. Write frontend tests
-7. Test UI manually
-8. Commit frontend changes
+1. **Create/update UI components (use create_file)**
+   
+   ```javascript
+   // Call create_file tool with:
+   // Path: "projects/frontend/src/components/ProfilePage.jsx"
+   // Content:
+   import React, { useState, useEffect } from 'react';
+   import { fetchProfile } from '../api/profiles';
+   
+   export const ProfilePage = ({ userId }) => {
+     const [profile, setProfile] = useState(null);
+     const [loading, setLoading] = useState(true);
+     
+     useEffect(() => {
+       const loadProfile = async () => {
+         try {
+           const data = await fetchProfile(userId);
+           setProfile(data);
+         } catch (error) {
+           console.error('Failed to load profile:', error);
+         } finally {
+           setLoading(false);
+         }
+       };
+       loadProfile();
+     }, [userId]);
+     
+     if (loading) return <div>Loading...</div>;
+     
+     return (
+       <div className="profile">
+         <h1>{profile.name}</h1>
+         {/* ... profile content ... */}
+       </div>
+     );
+   };
+   ```
+
+2. **Implement client-side logic**
+
+3. **Connect to API endpoints**
+   
+   ```javascript
+   // Call create_file tool with:
+   // Path: "projects/frontend/src/api/profiles.js"
+   // Content:
+   export const fetchProfile = async (userId) => {
+     const response = await fetch(`/api/users/${userId}/profile`);
+     if (!response.ok) throw new Error('Failed to fetch profile');
+     return response.json();
+   };
+   ```
+
+4. **Add styling (use create_file)**
+   
+   Example path: `projects/frontend/src/components/ProfilePage.css`
+
+5. **Handle loading and error states**
+
+6. **Write frontend tests (use create_file)**
+   
+   Example path: `projects/frontend/tests/ProfilePage.test.jsx`
+
+7. **Test UI manually**
+   ```bash
+   cd projects/frontend
+   npm start
+   ```
+
+8. **Commit frontend changes**
+   ```bash
+   git add projects/frontend/
+   git commit -m "Add profile page UI - Story 00042 (frontend)"
+   ```
 
 ### 5. Integrate & Test End-to-End
 

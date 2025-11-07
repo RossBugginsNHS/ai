@@ -419,9 +419,274 @@ Delivery Manager (12)
 │   │   ├── 21-backend-developer/      # Implementation role
 │   │   └── 22-full-stack-developer/   # Implementation role
 │   └── work-tracking-instructions.md  # Comprehensive work tracking guide
+├── projects/                          # ACTUAL CODE IMPLEMENTATIONS
+│   ├── _templates/                    # Project templates
+│   └── [project-name]/                # Your projects (structure decided by DM)
+│       ├── src/                       # Source code
+│       ├── tests/                     # Test files
+│       ├── docs/                      # Project-specific documentation
+│       ├── .github/                   # CI/CD workflows
+│       └── README.md                  # Project README
 ├── agent.md                           # This file - agent instructions
 ├── agent-custom.md                    # Human customizations
 └── DEVELOPMENT-TRACKER.md             # For ConceptShipAI's own development
+```
+
+## Project Structure & Code Implementation
+
+### Where Code Lives
+
+**All actual code implementations go in the `/projects/` folder.**
+
+This keeps ConceptShipAI framework files (docs, roles, agent.md) separate from your actual project code.
+
+### Project Structure Options
+
+The **Delivery Manager (Role 12)** decides project structure based on the **System Architecture** artifact (from Role 3).
+
+#### Simple Applications
+
+For simple, single-component applications:
+
+```
+projects/
+└── calculator-app/
+    ├── src/
+    │   ├── components/
+    │   ├── utils/
+    │   └── App.jsx
+    ├── tests/
+    ├── public/
+    ├── .github/workflows/
+    ├── package.json
+    └── README.md
+```
+
+#### Multi-Component Applications
+
+For applications with separate frontend/backend/infrastructure:
+
+```
+projects/
+├── frontend/
+│   ├── src/
+│   ├── tests/
+│   └── package.json
+├── backend/
+│   ├── src/
+│   ├── tests/
+│   └── requirements.txt
+└── infrastructure/
+    ├── terraform/
+    └── README.md
+```
+
+#### Microservices Architecture
+
+For microservices or domain-driven design:
+
+```
+projects/
+├── user-domain/
+│   ├── user-service/
+│   │   ├── src/
+│   │   └── tests/
+│   └── authentication-service/
+│       ├── src/
+│       └── tests/
+└── order-domain/
+    ├── order-service/
+    └── payment-service/
+```
+
+**Key Principle:** The architecture determines the structure. The Delivery Manager has full flexibility to organize projects based on what the System Architect designed.
+
+### Project Initialization
+
+When the **Delivery Manager** begins the implementation phase, they must initialize the project structure **before** assigning stories to implementation roles.
+
+#### Initialization Process
+
+1. **Review System Architecture** (`docs/artifacts/03-system-architect/system-architecture.md`)
+   - What tech stack was chosen? (React, Next.js, Python/FastAPI, Go, etc.)
+   - Single application or multiple services?
+   - Any framework-specific requirements?
+
+2. **Decide Project Structure**
+   - Simple app? → One folder: `projects/[app-name]/`
+   - Frontend + Backend? → Two folders: `projects/frontend/`, `projects/backend/`
+   - Microservices? → Nested: `projects/[domain]/[service]/`
+
+3. **Initialize Projects** (Tech-Specific)
+
+   **For React:**
+   ```bash
+   npx create-react-app projects/[name]
+   cd projects/[name]
+   npm install
+   ```
+
+   **For Next.js:**
+   ```bash
+   npx create-next-app projects/[name]
+   cd projects/[name]
+   npm install
+   ```
+
+   **For Python/FastAPI:**
+   ```bash
+   mkdir -p projects/[name]/src projects/[name]/tests
+   cd projects/[name]
+   python -m venv venv
+   source venv/bin/activate  # or venv\Scripts\activate on Windows
+   pip install fastapi uvicorn pytest
+   ```
+
+   **For Go:**
+   ```bash
+   mkdir -p projects/[name]
+   cd projects/[name]
+   go mod init [module-name]
+   ```
+
+   **For Node.js/Express:**
+   ```bash
+   mkdir -p projects/[name]/src projects/[name]/tests
+   cd projects/[name]
+   npm init -y
+   npm install express
+   npm install --save-dev jest
+   ```
+
+   **For Vanilla JavaScript/HTML:**
+   ```bash
+   mkdir -p projects/[name]/src projects/[name]/tests
+   cd projects/[name]
+   # Create basic structure manually
+   ```
+
+4. **Create Base Files**
+
+   Always create these foundation files:
+
+   - **`.gitignore`** - Exclude node_modules/, venv/, build/, etc.
+   - **`README.md`** - Project overview and setup instructions
+   - **`package.json`** or **`requirements.txt`** or **`go.mod`** - Dependencies
+   - **CI/CD config** (`.github/workflows/`) - If defined by DevOps Engineer
+
+5. **Commit Initial Structure**
+
+   ```bash
+   git add projects/[name]
+   git commit -m "Initialize [name] project - [tech stack]"
+   ```
+
+6. **Document in Work Tracking**
+
+   Add note to project plan or first feature:
+   ```markdown
+   ## Project Initialization
+   - Structure: projects/[name]/
+   - Tech stack: [framework/language]
+   - Initialized: [timestamp]
+   - Commands used: [initialization commands]
+   ```
+
+7. **THEN Assign First Story**
+
+   Only after project is initialized should you assign stories to implementation roles (20-22).
+
+### Code File Creation
+
+**CRITICAL: Implementation roles MUST use the `create_file` tool to create all code files.**
+
+#### File Paths
+
+All code files go under `/projects/[project-name]/`:
+
+- **Source code**: `projects/[name]/src/`
+- **Tests**: `projects/[name]/tests/` or `projects/[name]/__tests__/`
+- **Configuration**: `projects/[name]/` (root level)
+- **CI/CD**: `projects/[name]/.github/workflows/`
+- **Documentation**: `projects/[name]/docs/`
+
+#### Examples
+
+**Frontend Component:**
+```javascript
+create_file("projects/calculator-app/src/components/Calculator.jsx", [component code])
+```
+
+**Backend API:**
+```python
+create_file("projects/api-service/src/main.py", [FastAPI code])
+```
+
+**Tests:**
+```javascript
+create_file("projects/calculator-app/tests/calculator.test.js", [test code])
+```
+
+**CI/CD:**
+```yaml
+create_file("projects/calculator-app/.github/workflows/deploy.yml", [workflow config])
+```
+
+#### Tool Usage Pattern
+
+Implementation roles should follow this pattern:
+
+1. **Receive story assignment** from Delivery Manager
+2. **Read story details** from `docs/work/features/[id]/stories/[id]-story.md`
+3. **Determine file to create/modify** (e.g., `projects/app/src/components/Button.jsx`)
+4. **Write the code** (thinking through the logic)
+5. **Use `create_file` tool** with full path and code
+6. **Update story audit log** with progress
+7. **Commit changes** to git
+
+### Git Strategy
+
+**Everything goes in git:**
+
+- ✅ Framework files (`docs/`, `agent.md`)
+- ✅ Planning artifacts (`docs/artifacts/`)
+- ✅ Work tracking (`docs/work/`)
+- ✅ Project code (`projects/`)
+- ❌ Build artifacts (use `.gitignore`)
+- ❌ Dependencies (node_modules/, venv/)
+- ❌ Environment files (.env)
+
+**Use `.gitignore` files:**
+
+- **Root `.gitignore`**: Global ignores (`.DS_Store`, `*.log`)
+- **Project `.gitignore`**: Project-specific (node_modules/, dist/, venv/)
+
+### Integration with Work Tracking
+
+Work tracking in `docs/work/` tracks features and stories **across all projects**.
+
+- Feature files reference which project they belong to
+- Story audit logs show which files were modified
+- `assignments.md` shows which implementation role is working on which story for which project
+
+**Example Story:**
+```markdown
+# Story 00042: Implement User Profile Page
+
+**Project**: projects/frontend/
+**Feature**: 00015-user-management
+**Assigned To**: Frontend Developer (Role 20)
+
+## Acceptance Criteria
+- [ ] Profile page component created at projects/frontend/src/pages/ProfilePage.jsx
+- [ ] API integration with projects/backend/src/routes/users.py
+- [ ] Tests created at projects/frontend/tests/ProfilePage.test.jsx
+
+## Audit Log
+[2025-11-07 14:30 UTC] ASSIGNMENT: Assigned to Frontend Developer
+[2025-11-07 14:45 UTC] STATUS: in-progress - Created ProfilePage.jsx
+[2025-11-07 15:00 UTC] STATUS: in-progress - Added API integration
+[2025-11-07 15:15 UTC] STATUS: done - Tests passing, PR merged
 ```
 
 ## History Tracking

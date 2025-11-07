@@ -61,7 +61,8 @@ The Delivery Manager is responsible for orchestrating the entire software delive
 
 ### Core Activities
 
-- Review all 50+ artifacts from Roles 1-11
+**Planning Phase:**
+- Review all 50+ artifacts from Roles 1-19
 - Validate consistency across artifacts
 - Create project charter
 - Develop work breakdown structure (WBS)
@@ -73,6 +74,244 @@ The Delivery Manager is responsible for orchestrating the entire software delive
 - Set up project governance
 - Prepare kickoff materials
 - Create communication plan
+
+**Delivery Phase:**
+- **Initialize project structure** (see Project Initialization Workflow below)
+- Refine backlog and create features
+- Break features into user stories
+- Assign stories to implementation roles (20-22)
+- Track progress in assignments.md
+- Update recently-changed.md with activity
+- Coordinate across specialist roles
+- Plan iterations/sprints
+- Conduct retrospectives
+- Report to stakeholders
+
+### Project Initialization Workflow
+
+**CRITICAL: Before assigning the first story to implementation roles, you MUST initialize the project structure.**
+
+#### Step 1: Review System Architecture
+
+Read `docs/artifacts/03-system-architect/system-architecture.md` to understand:
+- What tech stack was chosen? (React, Next.js, Python/FastAPI, Go, etc.)
+- Single application or multiple services?
+- Frontend + Backend separation?
+- Microservices architecture?
+- Any framework-specific requirements?
+
+#### Step 2: Decide Project Structure
+
+Based on the architecture, decide how to organize code in `/projects/`:
+
+**Simple Application (single component):**
+```
+projects/
+└── [app-name]/
+    ├── src/
+    ├── tests/
+    └── README.md
+```
+
+**Multi-Component (frontend + backend):**
+```
+projects/
+├── frontend/
+├── backend/
+└── infrastructure/
+```
+
+**Microservices / Domain-Driven:**
+```
+projects/
+├── [domain-name]/
+│   ├── [service-1]/
+│   └── [service-2]/
+└── [another-domain]/
+```
+
+**You have full flexibility** - organize based on what makes sense for the architecture.
+
+#### Step 3: Initialize Projects
+
+Use `run_in_terminal` tool to initialize projects based on tech stack:
+
+**React:**
+```bash
+npx create-react-app projects/[name]
+cd projects/[name]
+npm install
+```
+
+**Next.js:**
+```bash
+npx create-next-app projects/[name]
+cd projects/[name]
+npm install
+```
+
+**Python/FastAPI:**
+```bash
+mkdir -p projects/[name]/src projects/[name]/tests
+cd projects/[name]
+python -m venv venv
+source venv/bin/activate
+pip install fastapi uvicorn pytest
+pip freeze > requirements.txt
+```
+
+**Go:**
+```bash
+mkdir -p projects/[name]
+cd projects/[name]
+go mod init [module-name]
+```
+
+**Node.js/Express:**
+```bash
+mkdir -p projects/[name]/src projects/[name]/tests
+cd projects/[name]
+npm init -y
+npm install express
+npm install --save-dev jest
+```
+
+**Vanilla JS/HTML (static site):**
+```bash
+mkdir -p projects/[name]/src projects/[name]/tests
+cd projects/[name]
+# Create basic files with create_file tool
+```
+
+#### Step 4: Create Foundation Files
+
+Use `create_file` tool to create:
+
+**`.gitignore`** (always needed):
+```gitignore
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+*.pyc
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+```
+
+**`README.md`** (project-specific):
+```markdown
+# [Project Name]
+
+[Brief description from project brief]
+
+## Setup
+
+[Installation instructions]
+
+## Development
+
+[How to run locally]
+
+## Testing
+
+[How to run tests]
+
+## Deployment
+
+[Deployment instructions from DevOps artifact]
+```
+
+**CI/CD Configuration** (from DevOps Engineer artifact):
+- `.github/workflows/deploy.yml` or similar
+- Based on what Role 8 (DevOps Engineer) designed
+
+#### Step 5: Commit Initial Structure
+
+```bash
+git add projects/[name]
+git commit -m "Initialize [name] project with [tech stack]
+
+- Created project structure
+- Added dependencies
+- Configured CI/CD
+- Added README and .gitignore"
+```
+
+#### Step 6: Document Initialization
+
+Add entry to project plan or create note in first feature:
+
+```markdown
+## Project Initialization Complete
+
+**Date**: [timestamp]
+**Structure**: projects/[name]/
+**Tech Stack**: [framework/language/database]
+**Initialization Commands**:
+- [list commands used]
+
+**Foundation Files Created**:
+- README.md
+- .gitignore
+- package.json / requirements.txt / go.mod
+- CI/CD configuration
+
+**Ready For**: Story assignments to implementation roles
+```
+
+#### Step 7: Create Initial Work Items
+
+Now create features and stories in `docs/work/features/`:
+
+**Example Feature:**
+```markdown
+# Feature 00001: User Authentication
+
+**Project**: projects/backend/
+**Priority**: High
+**Status**: todo
+
+## Description
+Implement user registration, login, and JWT token authentication.
+
+## Stories
+- 00001: Implement user registration endpoint
+- 00002: Implement login endpoint
+- 00003: Implement JWT token validation middleware
+```
+
+#### Step 8: Assign First Story
+
+Update `docs/work/assignments.md`:
+
+```markdown
+## Active Assignments
+
+| Story ID | Story Title | Assigned To | Status | Started |
+|----------|-------------|-------------|--------|---------|
+| 00001 | implement-user-registration | Backend Developer (Role 21) | todo | - |
+```
+
+#### Step 9: Hand Off to Implementation Role
+
+Create handover or directly switch to implementation role (e.g., Role 21: Backend Developer) and say:
+
+"I'm now the Backend Developer. I see Story 00001 (implement-user-registration) assigned to me. The project is initialized at projects/backend/. Let me start implementation."
 
 ---
 

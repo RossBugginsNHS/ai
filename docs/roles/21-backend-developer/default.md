@@ -128,30 +128,176 @@ The Backend Developer implements server-side logic, APIs, database interactions,
 
 ### 3. Implement Feature
 
+**CRITICAL: Use the `create_file` tool to create all code files.**
+
+All code goes in `/projects/[project-name]/`:
+- Source code: `projects/[name]/src/`
+- Tests: `projects/[name]/tests/`
+- Migrations: `projects/[name]/migrations/` or `projects/[name]/alembic/`
+
 **Actions**:
 
-1. Set up local development environment
-2. Create feature branch in git
-3. Write database migrations if needed
-4. Implement API endpoints
-5. Implement business logic
-6. Add error handling
-7. Add logging
-8. Test locally as you code
-9. Run linter and formatter
-10. Commit frequently with clear messages
+1. **Determine file to create/modify**
+   - Example: `projects/api-service/src/routes/users.py`
+   - Check if file exists (read it first if modifying)
+
+2. **Create feature branch in git**
+   ```bash
+   git checkout -b feature/story-00042-user-endpoint
+   ```
+
+3. **Write database migrations if needed (use create_file)**
+
+   **Example: Alembic migration (Python)**
+   ```python
+   // Call create_file tool with:
+   // Path: "projects/api-service/migrations/versions/001_add_users_table.py"
+   // Content:
+   """Add users table
+   
+   Revision ID: 001
+   """
+   from alembic import op
+   import sqlalchemy as sa
+   
+   def upgrade():
+       op.create_table(
+           'users',
+           sa.Column('id', sa.Integer, primary_key=True),
+           sa.Column('email', sa.String(255), nullable=False),
+           sa.Column('password_hash', sa.String(255), nullable=False),
+           sa.Column('created_at', sa.DateTime, server_default=sa.func.now())
+       )
+   
+   def downgrade():
+       op.drop_table('users')
+   ```
+
+4. **Implement API endpoints (use create_file)**
+
+   **Example: FastAPI endpoint**
+   ```python
+   // Call create_file tool with:
+   // Path: "projects/api-service/src/routes/users.py"
+   // Content:
+   from fastapi import APIRouter, HTTPException
+   from pydantic import BaseModel
+   
+   router = APIRouter()
+   
+   class UserCreate(BaseModel):
+       email: str
+       password: str
+   
+   @router.post("/users")
+   async def create_user(user: UserCreate):
+       # Validate input
+       if not user.email or '@' not in user.email:
+           raise HTTPException(400, "Invalid email")
+       
+       # Hash password
+       password_hash = hash_password(user.password)
+       
+       # Save to database
+       user_id = await db.users.insert(email=user.email, password_hash=password_hash)
+       
+       return {"id": user_id, "email": user.email}
+   ```
+
+5. **Implement business logic**
+   - Add validation
+   - Add error handling
+   - Add logging
+   
+6. **Test locally as you code**
+   ```bash
+   cd projects/[project-name]
+   # Run the server
+   uvicorn src.main:app --reload
+   
+   # Test with curl
+   curl -X POST http://localhost:8000/users \
+     -H "Content-Type: application/json" \
+     -d '{"email":"test@example.com","password":"secret123"}'
+   ```
+
+7. **Run linter and formatter**
+   ```bash
+   black src/
+   ruff check src/
+   # or
+   eslint src/
+   prettier --write src/
+   ```
+
+8. **Commit frequently with clear messages**
+   ```bash
+   git add projects/[project-name]/src/routes/
+   git commit -m "Add user registration endpoint - Story 00042"
+   ```
 
 ### 4. Write Tests
 
+**Use `create_file` tool for all test files.**
+
 **Actions**:
 
-1. Write unit tests for business logic
-2. Write integration tests for database interactions
-3. Write API tests for endpoints
-4. Test authentication and authorization
-5. Test error handling
-6. Ensure test coverage meets project standards
-7. Run full test suite locally
+1. **Create unit tests for business logic**
+
+   ```python
+   // Call create_file tool with:
+   // Path: "projects/api-service/tests/test_users.py"
+   // Content:
+   import pytest
+   from src.routes.users import UserCreate, create_user
+   
+   def test_create_user_valid():
+       user = UserCreate(email="test@example.com", password="secret123")
+       result = await create_user(user)
+       assert result["email"] == "test@example.com"
+       assert "id" in result
+   
+   def test_create_user_invalid_email():
+       user = UserCreate(email="invalid", password="secret123")
+       with pytest.raises(HTTPException) as exc:
+           await create_user(user)
+       assert exc.value.status_code == 400
+   ```
+
+2. **Write integration tests for database interactions**
+
+3. **Write API tests for endpoints** (using requests or httpx)
+
+   ```python
+   // Call create_file tool with:
+   // Path: "projects/api-service/tests/test_api_users.py"
+   // Content:
+   from fastapi.testclient import TestClient
+   from src.main import app
+   
+   client = TestClient(app)
+   
+   def test_create_user_endpoint():
+       response = client.post("/users", json={
+           "email": "test@example.com",
+           "password": "secret123"
+       })
+       assert response.status_code == 200
+       assert response.json()["email"] == "test@example.com"
+   ```
+
+4. **Test authentication and authorization**
+
+5. **Test error handling**
+
+6. **Ensure test coverage meets project standards**
+
+7. **Run full test suite locally**
+   ```bash
+   cd projects/[project-name]
+   pytest
+   pytest --cov=src --cov-report=html
+   ```
 
 ### 5. Submit for Review
 
