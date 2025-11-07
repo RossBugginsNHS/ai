@@ -1,96 +1,166 @@
-# AgentMD - Conversational Software Development Planning
+# AgentMD - AI-Powered Software Development Planning
 
-A workflow system that transforms customer conversations into comprehensive software development plans through 13 sequential roles.
+> **Transform your ideas into comprehensive development plans through conversational AI**
 
-## Quick Start
+AgentMD is a structured framework that guides an AI agent through 20 specialized roles to help you plan software projects. From initial concept to implementation-ready documentation, the AI acts as your collaborative partner - working with you like a skilled colleague to scope, design, and plan your entire project.
 
-### For New Projects
+## What is AgentMD?
 
-1. **Start a conversation** with the agent
-2. The agent introduces itself as your colleague (Customer Intake role)
-3. Work together collaboratively to scope your project
-4. The agent helps you clarify and structure your ideas
-5. Together you create a project brief
-6. The agent then transitions through specialist roles (1-12)
-7. Decide if you want to continue or handover to a new chat context
+AgentMD provides:
+- **20 Specialist Roles**: From Customer Intake to FinOps Analysis
+- **Conversational Planning**: Talk through your idea; the AI asks the right questions
+- **Comprehensive Artifacts**: 50+ documents covering every aspect of software development
+- **Work Tracking**: Built-in system for managing features, stories, and assignments
+- **Team Topologies**: Roles organized as Stream-Aligned, Enabling, Complicated-Subsystem, and Platform teams
+- **Agile Core Values**: Built-in principles for iterative, value-driven delivery
 
-### For Continuing Projects
+## Quick Start for Humans
 
-1. **Start new chat** with agent in project folder
-2. Agent will check for `docs/handovers/handover.md`
-3. Agent introduces itself as the next role
-4. Agent summarizes where you left off
-5. Confirm you want to continue
-6. Agent resumes with the next role
+### 1. Start a New Project
 
-## The 13 Roles
+```bash
+# Clone or use this template
+git clone https://github.com/nhsdigital/ai agentmd-myproject
+cd agentmd-myproject
+```
 
+### 2. Customize for Your Organization (Optional)
+
+Edit `agent-custom.md` with your preferences:
+- Preferred technologies (Python, Node.js, AWS, Azure, etc.)
+- Organizational standards and compliance requirements
+- Communication style preferences
+- Budget and timeline constraints
+
+### 3. Talk to Your AI
+
+Start a conversation with your AI agent. It will:
+1. **Introduce itself** as your colleague in the Customer Intake role
+2. **Work with you collaboratively** to understand your project
+3. **Ask clarifying questions** to help you think through your idea
+4. **Create a project brief** capturing what you discussed
+5. **Transition through specialist roles** (Business Analyst, Architect, Designer, etc.)
+6. **Generate comprehensive documentation** for each aspect of your project
+
+### 4. Use Work Tracking (Optional)
+
+If you want to track features and user stories for implementation:
+- The AI can create features and user stories in `docs/work/`
+- Each item gets a unique ID (e.g., `00001-user-authentication`)
+- Track assignments, status changes, and blockers
+- See [`docs/work-tracking-instructions.md`](docs/work-tracking-instructions.md) for details
+
+## The 20 Roles
+
+AgentMD uses **Team Topologies** to organize roles:
+
+### Stream-Aligned Teams (Deliver Value)
 | Role | Name | Purpose |
 |------|------|---------|
-| 0 | Customer Intake | Work as colleagues to scope the project together |
-| 1 | Business Analyst | Analyze business needs and stakeholders |
-| 2 | Requirements Engineer | Define functional and non-functional requirements |
-| 3 | System Architect | Design system architecture and tech stack |
-| 4 | Security Architect | Design security controls and threat mitigations |
-| 5 | UX/UI Designer | Create user experience and interface designs |
-| 6 | Database Designer | Design database schemas and data models |
-| 7 | API Designer | Specify API contracts and integrations |
-| 8 | DevOps Engineer | Plan infrastructure and CI/CD pipelines |
-| 9 | Test Architect | Define testing strategies and quality assurance |
-| 10 | Technical Lead | Create implementation roadmap and standards |
-| 11 | Documentation Writer | Write user guides and technical documentation |
-| 12 | Project Manager | Create project plan, timeline, and risk register |
+| 0 | **Customer** | Articulate vision, priorities, and constraints |
+| 10 | **Technical Lead** | Plan implementation roadmap and coding standards |
+| 11 | **Documentation Writer** | Create user guides and technical docs |
+| 12 | **Project Manager** | Manage timeline, risks, and delivery |
+| 13 | **User Researcher** | Conduct user research and validate designs |
 
-## Folder Structure
+### Enabling Teams (Build Capability)
+| Role | Name | Purpose |
+|------|------|---------|
+| 1 | **Business Analyst** | Analyze business needs and stakeholder requirements |
+| 2 | **Requirements Engineer** | Define detailed functional and non-functional requirements |
+| 5 | **UX/UI Designer** | Design user experience and interfaces |
+| 8 | **DevOps Engineer** | Plan infrastructure, deployment, and CI/CD |
+| 9 | **Test Architect** | Define testing strategies and quality assurance |
+| 14 | **Information Governance Officer** | Ensure data governance and privacy compliance |
+| 15 | **Safety Officer** | Ensure system safety in high-risk domains |
+| 16 | **Accessibility Specialist** | Ensure WCAG compliance and inclusive design |
+| 17 | **Performance Engineer** | Define performance requirements and optimization |
+| 18 | **Compliance Officer** | Ensure regulatory compliance (GDPR, HIPAA, etc.) |
+| 19 | **FinOps Analyst** | Optimize cloud costs and financial efficiency |
 
+### Complicated-Subsystem Teams (Deep Expertise)
+| Role | Name | Purpose |
+|------|------|---------|
+| 3 | **System Architect** | Design system architecture and technology choices |
+| 6 | **Database Designer** | Design database schemas and data models |
+| 7 | **API Designer** | Specify API contracts and integration patterns |
+
+### Platform Team (Enable Self-Service)
+| Role | Name | Purpose |
+|------|------|---------|
+| 4 | **Security Architect** | Design security controls and threat mitigations |
+
+## What You Get
+
+When you complete an AgentMD planning session, you'll have:
+
+### 📋 Planning & Requirements
+- Project brief with vision, goals, and constraints
+- Business analysis with stakeholder mapping
+- Detailed functional and non-functional requirements
+- User research findings and personas
+
+### 🏗️ Architecture & Design
+- System architecture diagrams and technology choices
+- Security architecture with threat models and controls
+- UX/UI designs with wireframes and prototypes
+- Database schema and data models
+- API specifications and integration patterns
+
+### 🚀 Implementation Planning
+- Infrastructure and deployment architecture
+- CI/CD pipeline designs
+- Testing strategy and quality gates
+- Implementation roadmap with coding standards
+- Cost optimization and FinOps guidance
+
+### 📚 Documentation & Governance
+- User guides and technical documentation
+- Project timeline, risks, and dependencies
+- Information governance and data privacy compliance
+- Accessibility compliance (WCAG)
+- Safety requirements (for high-risk domains)
+
+### 📊 Work Tracking (Optional)
+- Feature and user story management
+- Unique IDs for all work items (format: `00001-feature-name`)
+- Assignment tracking and status updates
+- Audit logs for complete history
+
+## Project Structure
+
+```text
+your-project/
+├── docs/                          # All documentation
+│   ├── artifacts/                 # Outputs from each role
+│   │   ├── 00-customer/
+│   │   ├── 01-business-analyst/
+│   │   ├── ...                    # Roles 00-19
+│   │   └── 19-finops-analyst/
+│   ├── work/                      # Work tracking (optional)
+│   │   ├── assignments.md
+│   │   ├── recently-changed.md
+│   │   ├── backlog/
+│   │   ├── features/
+│   │   │   ├── todo/
+│   │   │   ├── in-progress/
+│   │   │   ├── done/
+│   │   │   └── blocked/
+│   │   └── templates/
+│   ├── roles/                     # Role definitions (00-19)
+│   │   ├── 00-customer/
+│   │   │   ├── default.md         # Standard behavior
+│   │   │   └── custom.md          # Your customizations
+│   │   └── ...
+│   ├── handovers/                 # Session continuity
+│   │   ├── handover.md
+│   │   └── handover-histories/
+│   ├── history/                   # Interaction logs
+│   └── work-tracking-instructions.md
+├── agent.md                       # AI agent instructions
+├── agent-custom.md                # Your customizations
+└── DEVELOPMENT-TRACKER.md         # For template development
 ```
-agentmd/
-├── docs/                       # All project documentation
-│   ├── artifacts/             # All role artifacts
-│   │   ├── 00-customer/       # Project brief
-│   │   ├── 01-business-analyst/   # Business analysis
-│   │   ├── 02-requirements-engineer/
-│   │   ├── 03-system-architect/
-│   │   ├── 04-security-architect/
-│   │   ├── 05-ux-ui-designer/
-│   │   ├── 06-database-designer/
-│   │   ├── 07-api-designer/
-│   │   ├── 08-devops-engineer/
-│   │   ├── 09-test-architect/
-│   │   ├── 10-technical-lead/
-│   │   ├── 11-documentation-writer/
-│   │   └── 12-project-manager/
-│   ├── history/               # Interaction logs
-│   │   └── [timestamp]-[role].md
-│   ├── handovers/             # Context management
-│   │   ├── handover.md        # Current handover
-│   │   └── handover-histories/    # Past handovers
-│   └── roles/                 # Role definitions
-└── agent.md                    # Agent instructions
-```
-
-## Key Features
-
-### 🗣️ Conversational Interface
-No need to write a project brief manually. Just talk to the agent about your idea.
-
-### 🎯 Customizable Behavior
-Personalize the agent through `/agent-custom.md` and role-specific `custom.md` files.
-
-### 📝 Comprehensive Artifacts
-50+ detailed documents covering every aspect of software development planning.
-
-### 🔄 Context Handovers
-Long projects can span multiple chat sessions without losing context.
-
-### 📊 Complete History
-Every interaction is logged with timestamps and decisions.
-
-### ⏰ UTC Timestamps
-All times use UTC in `yyyyMMdd-HHmm` format for consistency.
-
-### 🔒 Version Control
-Automatic git commits at role transitions.
 
 ## Customization
 
@@ -116,188 +186,186 @@ Each role can be customized with:
 ### 🎭 Role Personas
 Each role can have a custom persona name for more engaging interactions.
 
-## Workflow Examples
+## How It Works
 
-### Example 1: Quick Session (1-2 Roles)
+### Conversational Planning
 
-```
-Human: Hi, I want to build a task management app
-Agent (as Colleague): Great! Let's work together to scope this out. Tell me more about 
-                       what you're envisioning - what problem are you trying to solve?
-Human: Our team struggles to track tasks across multiple projects...
-Agent: I see. So we're looking at multi-project task management. Have you thought about 
-       how many users? What's most important - simplicity or advanced features?
-Human: [Discussion continues - working together to clarify scope]
-Agent: Perfect. I've captured what we discussed in the project brief. 
-       Now I'll switch to Business Analyst role to analyze the business needs...
-Agent (as Business Analyst): [Creates business analysis artifacts]
-Agent: "I've completed the Business Analyst role. Ready to switch to Requirements Engineer?"
-Human: Yes, prepare handover
-Agent: [Creates handover, commits changes]
-Agent: "Handover ready. Start new chat when ready."
-```
-
-### Example 2: Continuing from Handover
+**You don't write a requirements document.** Instead, you have a natural conversation:
 
 ```
-[New chat context]
-Agent: [Checks docs/handovers/handover.md]
-Agent: "I found a handover from Business Analyst role completed on 2025-11-07 14:30 UTC.
-       We analyzed the business requirements for your task management app.
-       Ready to continue with Requirements Engineer role?"
-Human: Yes, let's continue
-Agent: [Archives handover, begins Requirements Engineer role]
+You: "Hi, I want to build a task management app for my team"
+
+AI (as your colleague): "Great! Let's work together to scope this out. Tell me more 
+                         about what you're envisioning - what problem are you solving?"
+
+You: "Our team struggles to track tasks across multiple projects..."
+
+AI: "I see. So multi-project task management. Have you thought about how many users? 
+     What's most important - simplicity or advanced features?"
+
+[Conversation continues - the AI helps you think through your idea]
+
+AI: "Perfect. I've captured what we discussed in a project brief. Now I'll switch 
+     to Business Analyst mode to analyze the business needs..."
 ```
 
-### Example 3: Multi-Day Project
+### Role Transitions
 
-**Day 1 (Roles 0-4)**
-- Customer intake
-- Business analysis
-- Requirements engineering
-- System architecture
-- Security architecture
-- Handover created
+The AI moves through roles sequentially:
+1. **Completes current role** - Creates all artifacts for that specialty
+2. **Announces transition** - "I've completed Business Analyst. Ready for Requirements Engineer?"
+3. **Creates handover** (optional) - For long sessions, preserves context for next chat
+4. **Starts next role** - Introduces itself in the new role and continues
 
-**Day 2 (Roles 5-8)**
-- Resume from handover
-- UX/UI design
-- Database design
-- API design
-- DevOps planning
-- Handover created
+### Session Continuity
 
-**Day 3 (Roles 9-12)**
-- Resume from handover
-- Testing strategy
-- Implementation planning
-- Documentation
-- Project management
-- Project ready! 🚀
+**Short project?** Complete all roles in one conversation.
 
-## File Naming Conventions
-
-### History Files
-`[yyyyMMdd-HHmm]-[role-number]-[role-name].md`
-
-**Examples:**
-- `20251107-1430-00-customer.md`
-- `20251107-1545-01-business-analyst.md`
-
-### Handover Archives
-`[yyyyMMdd-HHmm]-handover.md`
-
-**Examples:**
-- `20251107-1630-handover.md`
-- `20251108-0915-handover.md`
-
-### Git Commits
-`Completed [Role Name] - [yyyyMMdd-HHmm]`
-
-**Examples:**
-- `Completed Business Analyst - 20251107-1545`
-- `Completed Requirements Engineer - 20251107-1630`
-
-## Tips for Success
-
-### For Customers
-
-✅ **Do:**
-- Be specific about your needs and constraints
-- Answer questions honestly (budget, timeline, technical knowledge)
-- Ask for clarification if something is unclear
-- Review artifacts at role transitions
-- Request handovers for long sessions
-
-❌ **Don't:**
-- Rush through conversations - details matter
-- Hide constraints or concerns
-- Skip role reviews
-- Let sessions run too long without handovers
-
-### For the Agent
-
-✅ **Do:**
-- Ask clarifying questions
-- Create detailed, actionable artifacts
-- Document decisions and rationale
-- Use UTC timestamps consistently
-- Commit changes at role transitions
-- Create clear handovers
-
-❌ **Don't:**
-- Make assumptions - ask questions
-- Skip history logging
-- Forget to commit after handovers
-- Use local times (always UTC)
+**Long project?** The AI creates handovers so you can:
+- Take breaks between roles
+- Start fresh chat sessions
+- Resume exactly where you left off
+- No context lost
 
 ## Customization
 
-### Skipping Roles
+### Global Preferences (`agent-custom.md`)
 
-If a role isn't relevant (e.g., "no database needed"), you can:
-1. Create a minimal artifact noting why it's not applicable
-2. Document the decision in history
-3. Proceed to next role
+Tell the AI about your organization:
 
-### Revisiting Roles
+- **Technologies**: "We use Python, PostgreSQL, and AWS"
+- **Standards**: "All APIs must follow RESTful conventions"
+- **Compliance**: "We're HIPAA-compliant healthcare"
+- **Communication**: "Keep explanations simple - non-technical audience"
+- **Budget**: "Looking for cost-effective solutions"
 
-If later roles reveal gaps:
-1. Note the issue in current role's history
-2. Return to the earlier role
-3. Update the artifact
-4. Document why the revision was needed
-5. Continue forward
+### Role-Specific (`docs/roles/*/custom.md`)
 
-### Custom Roles
+Each role can be customized:
 
-You can add custom roles by:
-1. Creating a new role definition in `docs/roles/`
-2. Adding output folder in `outputs/`
-3. Updating workflow sequence
-4. Documenting the role's inputs and outputs
+- **Persona names**: Give roles friendly names for more engaging conversations
+- **Industry focus**: Healthcare, finance, government-specific guidance
+- **Templates**: Custom artifact templates for your organization
+- **Standards**: Role-specific standards (e.g., "Security Architect: Always include OWASP Top 10")
 
-## Troubleshooting
+**Example** (`docs/roles/03-system-architect/custom.md`):
+```markdown
+# Persona
+Marcus Chen - Principal System Architect
 
-### "Can't find handover file"
-- Check if `handovers/handover.md` exists
-- If not, this is a new project - start from Role 0
+# Preferences
+- Always consider serverless-first architecture
+- Prefer managed services over self-hosted
+- Cloud provider: AWS
+- Default to microservices for scalability
+```
 
-### "Lost context between sessions"
-- Check `handovers/handover-histories/` for archived handovers
-- Review recent history files in `history/`
+## Core Values (Built Into Every Role)
 
-### "Timestamp format incorrect"
-- Always use UTC time
-- Format: `yyyyMMdd-HHmm` for filenames
-- Format: `YYYY-MM-DD HH:mm UTC` for display
+Every role operates with these Agile principles:
 
-### "Git commit failed"
-- Ensure you're in a git repository
-- Check for uncommitted changes
-- Review `.gitignore` settings
+- **Be Agile** - Embrace change, adapt quickly, collaborate continuously
+- **Deliver Value Early and Often** - Focus on outcomes that matter to users
+- **Iterate and Release** - No big bang; ship small increments frequently
 
-## Best Practices
+## Tips for Success
 
-1. **One role at a time**: Don't rush through multiple roles in one session
-2. **Review artifacts**: Check outputs before proceeding
-3. **Use handovers**: For sessions >1 hour or >2-3 roles
-4. **Keep history**: Never delete history or handover archives
-5. **UTC always**: Never use local time zones
-6. **Commit often**: Let the agent handle commits at transitions
-7. **Ask questions**: Both customer and agent should clarify doubts
+### Getting the Best Results
+
+**✅ Do:**
+- **Be specific** about your constraints (budget, timeline, team size)
+- **Ask questions** if something is unclear
+- **Review artifacts** at each role transition
+- **Provide feedback** - the AI learns from your preferences
+- **Use handovers** for sessions longer than 1-2 hours
+- **Customize** `agent-custom.md` with your organization's preferences
+
+**❌ Don't:**
+- **Rush through roles** - details matter for good planning
+- **Hide constraints** - the AI needs to know your limitations
+- **Skip reviews** - catch issues early
+- **Let sessions go too long** - use handovers to break up work
+
+### Skipping or Revisiting Roles
+
+**Don't need a role?** (e.g., "No database required")
+- Tell the AI you want to skip it
+- It will create a minimal note explaining why
+- Moves to the next role
+
+**Need to go back?** (e.g., Requirements changed after architecture)
+- Tell the AI you need to revisit an earlier role
+- It will update the artifacts
+- Documents why the revision was needed
+- Continues forward
+
+### Working with the AI
+
+Think of it as your collaborative colleague, not a chatbot:
+- It asks thoughtful questions to help you think things through
+- It suggests considerations you might have missed
+- It confirms understanding before proceeding
+- It's okay to say "I don't know" - you'll figure it out together
+
+## Work Tracking (Optional)
+
+If you want to track implementation work:
+
+### When to Use
+- You're planning to implement the project
+- You want to track features and user stories
+- You need assignment and progress tracking
+- You're working with a team
+
+### How It Works
+1. **Project Manager role** creates features with unique IDs (e.g., `00001-user-authentication`)
+2. **Features** are broken into user stories (e.g., `00042-login-with-email`)
+3. **Status tracking**: todo → in-progress → done → blocked
+4. **Audit logs**: Every change is recorded (status, assignments, blockers)
+5. **Recently changed**: Quick view of last 30 days of activity
+
+See [`docs/work-tracking-instructions.md`](docs/work-tracking-instructions.md) for complete details.
+
+## Frequently Asked Questions
+
+### "How long does a full planning session take?"
+- **Quick project**: 30-60 minutes (core roles only)
+- **Standard project**: 2-4 hours (most roles)
+- **Complex project**: Multiple sessions with handovers
+
+### "Can I use only some roles?"
+Yes! Skip roles that aren't relevant. The AI will document why they were skipped.
+
+### "Can I add custom roles?"
+Yes! Create new role definitions in `docs/roles/` and update the workflow sequence.
+
+### "What if I need to change something later?"
+Go back to any role, update the artifacts, and document the change in history.
+
+### "Can multiple people use this for one project?"
+Yes! The handover system allows different people to work on different roles. Commit changes to git for team coordination.
+
+### "Is this a replacement for actually building software?"
+No! AgentMD creates the **planning and design** documentation. You still need developers to build the actual software.
+
+### "What AI agents work with this?"
+Any AI agent that can read files, write files, and follow instructions - Claude, GPT-4, etc.
 
 ## Getting Help
 
-- **Agent Instructions**: See `agent.md`
-- **Role Details**: Check `docs/roles/[role-name].md`
-- **Workflow Overview**: See `docs/roles-and-artifacts.md`
-- **Folder Purpose**: Read `README.md` in each folder
+- **Agent Instructions**: [`agent.md`](agent.md) - Complete guide for the AI
+- **Role Details**: `docs/roles/[role-name]/default.md` - Each role's responsibilities
+- **Work Tracking**: [`docs/work-tracking-instructions.md`](docs/work-tracking-instructions.md)
+- **Team Topologies**: [`docs/roles-and-artifacts.md`](docs/roles-and-artifacts.md)
+
+## Contributing
+
+This is an NHS Digital project. Contributions welcome! See [CHANGELOG.md](CHANGELOG.md) for recent changes.
 
 ## License
 
-[Your License Here]
+[License TBD]
 
 ---
 
-**Ready to start?** Just say "Hi" to the agent and describe your project idea! 🚀
+**Ready to start planning your project?** Just say "Hi" to your AI agent and describe your idea! 🚀

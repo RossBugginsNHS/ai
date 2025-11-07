@@ -128,7 +128,7 @@ You will work through 13 roles (0-12), having natural conversations with the cus
 ```
 /
 ├── docs/                              # All project documentation
-│   ├── artifacts/                     # All role artifacts
+│   ├── artifacts/                     # All role artifacts (outputs)
 │   │   ├── 00-customer/               # Customer intake artifacts
 │   │   │   └── project-brief.md
 │   │   ├── 01-business-analyst/       # Business analysis artifacts
@@ -143,7 +143,18 @@ You will work through 13 roles (0-12), having natural conversations with the cus
 │   │   ├── 10-technical-lead/         # Implementation planning artifacts
 │   │   ├── 11-documentation-writer/   # Documentation artifacts
 │   │   └── 12-project-manager/        # Project management artifacts
-│   ├── history/                       # Interaction history
+│   ├── work/                          # Work tracking (for client projects)
+│   │   ├── README.md                  # Work tracking overview
+│   │   ├── assignments.md             # Current assignments
+│   │   ├── recently-changed.md        # Recent activity (last 30 days)
+│   │   ├── backlog/                   # Unrefined ideas
+│   │   ├── features/                  # Features with status folders
+│   │   │   ├── todo/
+│   │   │   ├── in-progress/
+│   │   │   ├── done/
+│   │   │   └── blocked/
+│   │   └── templates/                 # Feature and story templates
+│   ├── history/                       # Interaction history (for AgentMD sessions)
 │   │   ├── [yyyyMMdd-HHmm]-00-customer.md
 │   │   ├── [yyyyMMdd-HHmm]-01-business-analyst.md
 │   │   └── ...                        # One file per role interaction
@@ -152,11 +163,16 @@ You will work through 13 roles (0-12), having natural conversations with the cus
 │   │   └── handover-histories/        # Archive of past handovers
 │   │       ├── [yyyyMMdd-HHmm]-handover.md
 │   │       └── ...
-│   └── roles/                         # Role definitions
-│       ├── 00-customer.md
-│       ├── 01-business-analyst.md
-│       └── ...
-└── agent.md                           # This file
+│   ├── roles/                         # Role definitions (00-19)
+│   │   ├── 00-customer/
+│   │   │   ├── default.md             # READ-ONLY role behavior
+│   │   │   └── custom.md              # EDITABLE customizations
+│   │   ├── 01-business-analyst/
+│   │   └── ...                        # Roles 00-19
+│   └── work-tracking-instructions.md  # Comprehensive work tracking guide
+├── agent.md                           # This file - agent instructions
+├── agent-custom.md                    # Human customizations
+└── DEVELOPMENT-TRACKER.md             # For AgentMD's own development
 ```
 
 ## History Tracking
@@ -237,6 +253,74 @@ When preparing for handover, create `docs/handovers/handover.md` with:
 3. **Summarize to customer**: Present what was completed and what's next
 4. **Get confirmation**: "Ready to continue with [Next Role]?"
 5. **Proceed**: Begin the next role's work
+
+## Work Tracking System
+
+**⚠️ CRITICAL: Read [`/docs/work-tracking-instructions.md`](/docs/work-tracking-instructions.md) BEFORE using the work tracking system.**
+
+### When to Use Work Tracking
+
+**✅ USE for CLIENT PROJECTS:**
+- When helping a customer plan/build THEIR software project using AgentMD
+- When the customer wants to track features, user stories, and assignments
+- For ongoing delivery work that needs progress tracking
+
+**❌ DO NOT USE for AgentMD Development:**
+- When working on the AgentMD template itself
+- When building/improving this framework
+- Use `DEVELOPMENT-TRACKER.md` instead for meta-development
+
+### Work Tracking Overview
+
+The work tracking system provides:
+- **Unique Numeric IDs**: Format `00001-feature-name` for all work items
+- **Append-Only Audit Logs**: Track status, assignment, and blocker changes
+- **recently-changed.md**: Quick view of last 30 days of activity
+- **Lean Handovers**: Reference work items by ID instead of duplicating content
+
+**Location**: `docs/work/`
+
+**Key Files**:
+- `docs/work/README.md` - System overview and workflow
+- `docs/work/assignments.md` - Current active assignments
+- `docs/work/recently-changed.md` - Recent activity log
+- `docs/work/templates/` - Feature and user story templates
+- `docs/work-tracking-instructions.md` - Comprehensive agent instructions
+
+### Integration with Roles
+
+**Project Manager (Role 12)**:
+- Manages backlog refinement
+- Creates features and user stories with unique IDs
+- Assigns work and tracks progress
+- Maintains assignments.md and recently-changed.md
+
+**All Roles**:
+- Can create backlog items in `docs/work/backlog/`
+- Reference work items by ID in artifacts and handovers
+- Update work item audit logs when making changes
+
+### Handovers with Work Tracking
+
+When using work tracking, keep handovers lean:
+
+```markdown
+# Handover: Business Analyst → Requirements Engineer
+
+## Context
+Feature 00001 (user-authentication) has been refined and is ready for detailed requirements.
+
+## Completed Work
+- Feature 00001 created with 4 user stories (see docs/work/features/todo/00001-user-authentication/)
+- Story IDs: 00042, 00043, 00044, 00045
+
+## Next Steps
+Requirements Engineer should:
+1. Review feature 00001 acceptance criteria
+2. Create detailed requirements for stories 00042-00045
+```
+
+**DO NOT duplicate work item details in handovers** - reference by ID instead.
 
 ## Key Principles
 
