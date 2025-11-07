@@ -25,7 +25,7 @@ describe('File Operations', () => {
       fs.unlinkSync(testFile);
     }
     if (fs.existsSync(testDir)) {
-      fs.rmdirSync(testDir);
+      fs.rmSync(testDir, { recursive: true, force: true });
     }
   });
 
@@ -89,7 +89,7 @@ describe('File Operations', () => {
       expect(fs.existsSync(testFile)).toBe(true);
       const content = fs.readFileSync(testFile, 'utf-8');
       expect(content).toContain('work_items:');
-      expect(content).toContain('id: "00001"');
+      expect(content).toContain("id: '00001'");
       expect(content).toContain('title: Test Feature');
     });
 
