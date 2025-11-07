@@ -1,6 +1,6 @@
-# Roles and Artifacts Workflow
+# ConceptShipAI Roles and Artifacts
 
-This document defines the roles the AI agent will assume during the software development process, what each role consumes, and what artifacts each role produces.
+This document provides a comprehensive overview of all roles in the ConceptShipAI framework, organized by Team Topologies patterns.
 
 ---
 

@@ -1,8 +1,8 @@
 # Work Tracking
 
-This folder contains the AgentMD work tracking system - a lightweight, file-based approach to managing features, user stories, and assignments for CLIENT PROJECTS.
+This folder contains the ConceptShipAI work tracking system - a lightweight, file-based approach to managing features, user stories, and assignments for CLIENT PROJECTS.
 
-> **⚠️ IMPORTANT:** This is for tracking work on CLIENT PROJECTS using AgentMD, NOT for AgentMD's own development.  
+> **⚠️ IMPORTANT:** This is for tracking work on CLIENT PROJECTS using ConceptShipAI, NOT for ConceptShipAI's own development.  
 > **📖 READ FIRST:** See [`/docs/work-tracking-instructions.md`](../work-tracking-instructions.md) for comprehensive guidance on when and how to use this system.
 
 ## Philosophy

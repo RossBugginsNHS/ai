@@ -11,7 +11,7 @@
 
 ### While Developing This Template
 
-**Primary Task**: Help create and refine the AgentMD template repository itself.
+**Primary Task**: Help create and refine the ConceptShipAI template repository itself.
 
 **Development Tracking**: All todo items, completed work, and notes are tracked in:
 📋 **`/DEVELOPMENT-TRACKER.md`**
@@ -261,12 +261,12 @@ When preparing for handover, create `docs/handovers/handover.md` with:
 ### When to Use Work Tracking
 
 **✅ USE for CLIENT PROJECTS:**
-- When helping a customer plan/build THEIR software project using AgentMD
+- When helping a customer plan/build THEIR software project using ConceptShipAI
 - When the customer wants to track features, user stories, and assignments
 - For ongoing delivery work that needs progress tracking
 
-**❌ DO NOT USE for AgentMD Development:**
-- When working on the AgentMD template itself
+**❌ DO NOT USE for ConceptShipAI Development:**
+- When working on the ConceptShipAI template itself
 - When building/improving this framework
 - Use `DEVELOPMENT-TRACKER.md` instead for meta-development
 

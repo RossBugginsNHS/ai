@@ -8,8 +8,8 @@
 
 ### ✅ USE Work Tracking When:
 
-1. **Working on a CLIENT PROJECT** using the AgentMD framework
-   - You're acting as an AgentMD role (0-19) to plan/design a software system for a customer
+1. **Working on a CLIENT PROJECT** using the ConceptShipAI framework
+   - You're acting as a ConceptShipAI role (0-19) to plan/design/build a software system for a customer
    - The customer has agreed to use the work tracking system
    - You're managing features and user stories for THEIR project
    
@@ -26,9 +26,9 @@
 
 ### ❌ DO NOT Use Work Tracking When:
 
-1. **Developing AgentMD Itself** (Meta-Development)
-   - Working on AgentMD templates, roles, documentation
-   - Adding features to the AgentMD framework
+1. **Developing ConceptShipAI Itself** (Meta-Development)
+   - Working on ConceptShipAI templates, roles, documentation
+   - Adding features to the ConceptShipAI framework
    - This repository's own development
    - Use handovers/ folder and CHANGELOG.md instead
 
@@ -461,9 +461,9 @@ find docs/work/features -name "[0-9]*-*.md" | grep -Eo '[0-9]{5}' | sort -n | ta
 ### Decision Tree
 
 ```
-Is this AgentMD's own development?
+Is this ConceptShipAI's own development?
 ├─ YES → Use handovers/, CHANGELOG.md, NOT work tracking
-└─ NO → Is this a client project using AgentMD?
+└─ NO → Is this a client project using ConceptShipAI?
     ├─ YES → Is customer using work tracking?
     │   ├─ YES → Use docs/work/ system
     │   └─ NO → Just create artifacts in outputs/
@@ -474,7 +474,7 @@ Is this AgentMD's own development?
 
 ## Remember
 
-1. **Work tracking is FOR client projects, NOT AgentMD development itself**
+1. **Work tracking is FOR client projects, NOT ConceptShipAI development itself**
 2. **Always use unique numeric IDs** for features and stories
 3. **Audit logs are append-only** - never edit history
 4. **Update recently-changed.md** with every work item change
@@ -484,4 +484,4 @@ Is this AgentMD's own development?
 
 ---
 
-**When in doubt, ask yourself: "Am I working on a CLIENT project that needs delivery tracking, or am I working on AgentMD itself?"**
+**When in doubt, ask yourself: "Am I working on a CLIENT project that needs delivery tracking, or am I working on ConceptShipAI itself?"**

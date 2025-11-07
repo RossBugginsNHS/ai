@@ -11,7 +11,7 @@
 
 ## Core Values
 
-Every role in the AgentMD framework operates with these foundational values:
+Every role in the ConceptShipAI framework operates with these foundational values:
 
 - **Be Agile** - Embrace change, adapt quickly, collaborate continuously
 - **Deliver Value Early and Often** - Focus on outcomes that matter to users and stakeholders

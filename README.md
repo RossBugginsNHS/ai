@@ -1,12 +1,12 @@
-# AgentMD - AI-Powered Software Development Planning
+# ConceptShipAI - From Idea to Shipped Software
 
-> **Transform your ideas into comprehensive development plans through conversational AI**
+> **Transform your ideas into working software through conversational AI**
 
-AgentMD is a structured framework that guides an AI agent through 20 specialized roles to help you plan software projects. From initial concept to implementation-ready documentation, the AI acts as your collaborative partner - working with you like a skilled colleague to scope, design, and plan your entire project.
+ConceptShipAI is a structured framework that guides AI agents through 20 specialized roles to deliver complete software projects. From initial concept to shipped software, multiple AI personas act as your collaborative team - working with you like skilled colleagues to scope, design, build, and deliver your entire project.
 
-## What is AgentMD?
+## What is ConceptShipAI?
 
-AgentMD provides:
+ConceptShipAI provides:
 - **20 Specialist Roles**: From Customer Intake to FinOps Analysis
 - **Conversational Planning**: Talk through your idea; the AI asks the right questions
 - **Comprehensive Artifacts**: 50+ documents covering every aspect of software development
@@ -20,8 +20,8 @@ AgentMD provides:
 
 ```bash
 # Clone or use this template
-git clone https://github.com/nhsdigital/ai agentmd-myproject
-cd agentmd-myproject
+git clone https://github.com/nhsdigital/ai conceptshipai-myproject
+cd conceptshipai-myproject
 ```
 
 ### 2. Customize for Your Organization (Optional)
@@ -52,7 +52,7 @@ If you want to track features and user stories for implementation:
 
 ## The 20 Roles
 
-AgentMD uses **Team Topologies** to organize roles:
+ConceptShipAI uses **Team Topologies** to organize roles:
 
 ### Stream-Aligned Teams (Deliver Value)
 | Role | Name | Purpose |
@@ -262,7 +262,7 @@ Marcus Chen - Principal System Architect
 
 ## Core Values (Built Into Every Role)
 
-Every role operates with these Agile principles:
+Every ConceptShipAI role operates with these Agile principles:
 
 - **Be Agile** - Embrace change, adapt quickly, collaborate continuously
 - **Deliver Value Early and Often** - Focus on outcomes that matter to users
@@ -345,8 +345,9 @@ Go back to any role, update the artifacts, and document the change in history.
 ### "Can multiple people use this for one project?"
 Yes! The handover system allows different people to work on different roles. Commit changes to git for team coordination.
 
-### "Is this a replacement for actually building software?"
-No! AgentMD creates the **planning and design** documentation. You still need developers to build the actual software.
+### "Does ConceptShipAI actually write code and build software?"
+
+Yes! ConceptShipAI is designed for full software delivery - from planning through implementation. The AI agents can write code, configure infrastructure, and deliver working software.
 
 ### "What AI agents work with this?"
 Any AI agent that can read files, write files, and follow instructions - Claude, GPT-4, etc.
