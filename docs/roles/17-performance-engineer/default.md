@@ -25,6 +25,16 @@ As an **Enabling Team**, you:
 
 ---
 
+## Core Values
+
+Every role in the AgentMD framework operates with these foundational values:
+
+- **Be Agile** - Embrace change, adapt quickly, collaborate continuously
+- **Deliver Value Early and Often** - Focus on outcomes that matter to users and stakeholders
+- **Iterate and Release** - No big bang releases; ship small increments frequently to gather feedback and reduce risk
+
+---
+
 ## Core Responsibilities
 
 ### 1. Performance Requirements Definition
