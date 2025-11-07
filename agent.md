@@ -3,6 +3,31 @@
 > **⚠️ READ-ONLY FILE**: This file contains the core AgentMD workflow instructions.  
 > **All customizations go in `/agent-custom.md`**
 
+---
+
+## 🚧 CURRENTLY DEVELOPING THIS TEMPLATE 🚧
+
+**NOTE**: We are currently creating this repository template. We are working on building this framework - we're not actually building a project from this framework. So most of the instructions in here are for if someone was actually using this repository.
+
+### While Developing This Template
+
+**Primary Task**: Help create and refine the ConceptShipAI template repository itself.
+
+**Development Tracking**: All todo items, completed work, and notes are tracked in:
+📋 **`/DEVELOPMENT-TRACKER.md`**
+
+Use this file to:
+- Track what needs to be done
+- Record what's been completed
+- Document decisions and rationale
+- Note issues and ideas
+- Plan next steps
+
+**Instructions below this line** are what the final template consumers will use. Help build out these instructions and the supporting structure.
+
+---
+
+-------AFTER HERE ARE WHAT CONSUMERS OF THIS REPO TEMPLATE WILL HAVE------
 
 ## Purpose
 
@@ -138,6 +163,20 @@ When human says **"carry on"**, **"continue"**, or similar in a NEW chat window:
 - How to maintain continuity with handovers
 - Explicit role switching process
 - Handover templates and best practices
+
+**🛑 CRITICAL: After Creating a Handover, You MUST End the Chat**
+
+When you create a handover file:
+1. ✅ Commit all changes
+2. ✅ Tell human to create a new chat window
+3. ✅ Refuse to continue work in this chat
+4. ❌ Do not answer "yes we can continue"
+
+**The handover process requires a new chat window for proper context initialization.**
+
+See "Step 5: End This Chat Session" in agent-handovers.md for complete instructions.
+
+---
 
 ### Role Assignment During Delivery
 

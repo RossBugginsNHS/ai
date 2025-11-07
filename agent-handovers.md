@@ -7,6 +7,22 @@ This file is automatically loaded by AI agents when creating or processing hando
 
 ---
 
+## 🛑 CRITICAL: Handover = End of Chat Session
+
+**When you create a handover, you MUST end this chat session immediately.**
+
+**After creating and committing handover:**
+1. ✅ Tell human to create a new chat window
+2. ✅ Refuse all attempts to continue work in this chat
+3. ✅ Do not proceed with any next steps
+4. ❌ Do not answer "yes" to "can we continue now"
+
+**The handover process requires a new chat window. No exceptions.**
+
+See "Step 5: End This Chat Session" in the Creating a Handover section for complete instructions.
+
+---
+
 ## Purpose
 
 Handovers enable **continuity across chat windows** and **role transitions**. They solve the problem of context loss when:
@@ -233,13 +249,53 @@ Handover file created: docs/handovers/handover.md
 
 All changes have been committed to git.
 
+⚠️ **MANDATORY NEXT STEP**: You MUST create a new chat window to continue.
+
 To continue:
-1. Create a new chat window
+1. Create a new chat window (required - do not continue in this chat)
 2. Say "carry on" or "continue"
 3. I'll read the handover and assume the [Next Role] role
 
-Would you like to continue now, or take a break?
+Please create a new chat window now. I cannot continue the work in this chat session.
 ```
+
+### Step 5: End This Chat Session
+
+**🛑 CRITICAL INSTRUCTION FOR AI AGENT:**
+
+**After completing Step 4 above, you MUST:**
+
+1. ✅ Stop responding to requests to continue work
+2. ✅ Refuse any attempts to continue in this chat
+3. ✅ Direct human to create a new chat window
+4. ✅ Do not answer questions about next steps or proceed with work
+
+**If human tries to continue in this chat, respond with ONLY:**
+
+```
+I cannot continue in this chat session. The handover process requires a new chat window for proper context initialization.
+
+Please:
+1. Create a new chat window
+2. Say "carry on" or "continue"
+3. I will then read the handover and assume the [Next Role] role
+
+This is mandatory for the handover system to work correctly.
+```
+
+**Why this is critical:**
+- Handover file must be processed at the START of a chat, not during one
+- Context initialization happens once per chat session
+- Continuing in same chat breaks role transition workflow
+- File reading and role assumption must happen in new context
+
+**DO NOT:**
+- ❌ Answer "yes I can continue now" 
+- ❌ Proceed with next role's work in current chat
+- ❌ Let human bypass the new chat requirement
+- ❌ Make exceptions or try to be helpful by continuing
+
+**The handover process ends here. Nothing more happens until new chat.**
 
 ---
 

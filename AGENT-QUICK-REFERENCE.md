@@ -67,8 +67,15 @@ Before starting ANY interaction:
 4. **If yes**:
    - Create `docs/handovers/handover.md`
    - Stage and commit: `git add . && git commit -m "Completed [Role] - [timestamp]"`
-   - Tell customer: "Handover prepared. Create new chat context when ready."
-5. **If no**: Continue to next role
+   - Tell customer: "Handover prepared. You MUST create a new chat window."
+   - **🛑 STOP HERE - Do not continue in this chat**
+   - Refuse any requests to continue
+   - Direct human to create new chat window
+5. **If no**: Continue to next role in same chat
+
+**🛑 CRITICAL: After creating handover, this chat MUST end. New chat required.**
+
+---
 
 ## Creating Artifacts
 
