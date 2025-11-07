@@ -155,41 +155,14 @@ When human says **"carry on"**, **"continue"**, or similar in a NEW chat window:
    - Work on a specific task
    ```
 
-### State Persistence Across Chat Windows
+### State Persistence and Role Switching
 
-**What persists:**
-- All files in the repository (artifacts, work tracking, roles, etc.)
-- `docs/handovers/handover.md` - tells next chat which role to assume
-- `docs/work/assignments.md` - shows active work assignments
-- `docs/work/features/` and `docs/work/stories/` - all work items with audit logs
-- Git commits - complete history of all changes
-
-**What does NOT persist:**
-- The conversation context from the previous chat window
-- Working memory (you only know what's in files)
-
-**How to maintain continuity:**
-- Read the handover file - it contains essential context
-- Read recent entries in work item audit logs
-- Check git log if needed: `git log --oneline -10`
-- Read artifacts created in previous roles
-
-### Explicit Role Switching
-
-Human can explicitly ask you to switch roles at any time:
-
-**Examples:**
-- "Switch to Security Architect role"
-- "I need the Database Designer to look at this"
-- "Can the UX Designer review this feature?"
-- "Be the Frontend Developer and implement story 00042"
-
-**When this happens:**
-1. **Acknowledge the switch**: "Switching to [Role Name] role"
-2. **Read role files**: Read `docs/roles/[role]/default.md` and `custom.md`
-3. **Introduce yourself**: "I'm now the [Role Name] [Persona Name if defined]"
-4. **Ask for context**: "What would you like me to work on?"
-5. **Proceed with that role's responsibilities**
+**📖 See [agent-handovers.md](./agent-handovers.md) for complete handover process documentation**, including:
+- What persists across chat windows (files, git, work tracking)
+- What doesn't persist (conversation context, memory)
+- How to maintain continuity with handovers
+- Explicit role switching process
+- Handover templates and best practices
 
 ### Role Assignment During Delivery
 
@@ -394,326 +367,52 @@ Delivery Manager (12)
 ├── docs/                              # All project documentation
 │   ├── artifacts/                     # All role artifacts (outputs)
 │   │   ├── 00-customer/               # Customer intake artifacts
-│   │   │   └── project-brief.md
 │   │   ├── 01-business-analyst/       # Business analysis artifacts
 │   │   ├── 02-requirements-engineer/  # Requirements artifacts
-│   │   ├── 03-system-architect/       # Architecture artifacts
-│   │   ├── 04-security-architect/     # Security artifacts
-│   │   ├── 05-ux-ui-designer/         # Design artifacts
-│   │   ├── 06-database-designer/      # Database artifacts
-│   │   ├── 07-api-designer/           # API artifacts
-│   │   ├── 08-devops-engineer/        # DevOps/Infrastructure artifacts
-│   │   ├── 09-test-architect/         # Testing artifacts
-│   │   ├── 10-technical-lead/         # Implementation planning artifacts
-│   │   ├── 11-documentation-writer/   # Documentation artifacts
-│   │   └── 12-delivery-manager/       # Delivery management artifacts
+│   │   └── ...                        # All planning role artifacts (03-12)
 │   ├── work/                          # Work tracking (for client projects)
 │   │   ├── README.md                  # Work tracking overview
 │   │   ├── assignments.md             # Current assignments
-│   │   ├── recently-changed.md        # Recent activity (last 30 days)
-│   │   ├── backlog/                   # Unrefined ideas
 │   │   ├── features/                  # Features with status folders
-│   │   │   ├── todo/
-│   │   │   ├── in-progress/
-│   │   │   ├── done/
-│   │   │   └── blocked/
-│   │   └── templates/                 # Feature and story templates
-│   ├── history/                       # Interaction history (for ConceptShipAI sessions)
-│   │   ├── [yyyyMMdd-HHmm]-00-customer.md
-│   │   ├── [yyyyMMdd-HHmm]-01-business-analyst.md
-│   │   └── ...                        # One file per role interaction
+│   │   └── backlog/                   # Unrefined ideas
+│   ├── history/                       # Interaction history
+│   │   └── [yyyyMMdd-HHmm]-[role].md  # Timestamped role interactions
 │   ├── handovers/                     # Context handover management
 │   │   ├── handover.md                # Current handover (if pending)
 │   │   └── handover-histories/        # Archive of past handovers
-│   │       ├── [yyyyMMdd-HHmm]-handover.md
-│   │       └── ...
-│   ├── roles/                         # Role definitions (00-22)
-│   │   ├── 00-customer/
-│   │   │   ├── default.md             # READ-ONLY role behavior
-│   │   │   └── custom.md              # EDITABLE customizations
-│   │   ├── 01-business-analyst/
-│   │   ├── ...                        # Planning roles 00-19
-│   │   ├── 20-frontend-developer/     # Implementation role
-│   │   ├── 21-backend-developer/      # Implementation role
-│   │   └── 22-full-stack-developer/   # Implementation role
-│   └── work-tracking-instructions.md  # Comprehensive work tracking guide
+│   └── roles/                         # Role definitions (00-22)
+│       ├── 00-customer/
+│       │   ├── default.md             # READ-ONLY role behavior
+│       │   └── custom.md              # EDITABLE customizations
+│       └── ...                        # All roles 00-22
 ├── projects/                          # ACTUAL CODE IMPLEMENTATIONS
-│   ├── _templates/                    # Project templates
 │   └── [project-name]/                # Your projects (structure decided by DM)
 │       ├── src/                       # Source code
 │       ├── tests/                     # Test files
-│       ├── docs/                      # Project-specific documentation
-│       ├── .github/                   # CI/CD workflows
 │       └── README.md                  # Project README
-├── agent.md                           # This file - agent instructions
+├── agent.md                           # This file - core orchestration
 ├── agent-custom.md                    # Human customizations
+├── agent-handovers.md                 # Handover process instructions
+├── agent-project-structure.md         # Project structure & code implementation
+├── agent-work-tracking.md             # Work tracking system instructions
 └── DEVELOPMENT-TRACKER.md             # For ConceptShipAI's own development
 ```
 
+**📖 See Also:**
+- **[agent-handovers.md](./agent-handovers.md)** - Handover process and state persistence
+- **[agent-project-structure.md](./agent-project-structure.md)** - Where code lives, project initialization, TDD workflow
+- **[agent-work-tracking.md](./agent-work-tracking.md)** - Features, stories, assignments, audit logs
+
 ## Project Structure & Code Implementation
 
-### Where Code Lives
-
-**All actual code implementations go in the `/projects/` folder.**
-
-This keeps ConceptShipAI framework files (docs, roles, agent.md) separate from your actual project code.
-
-### Project Structure Options
-
-The **Delivery Manager (Role 12)** decides project structure based on the **System Architecture** artifact (from Role 3).
-
-#### Simple Applications
-
-For simple, single-component applications:
-
-```
-projects/
-└── calculator-app/
-    ├── src/
-    │   ├── components/
-    │   ├── utils/
-    │   └── App.jsx
-    ├── tests/
-    ├── public/
-    ├── .github/workflows/
-    ├── package.json
-    └── README.md
-```
-
-#### Multi-Component Applications
-
-For applications with separate frontend/backend/infrastructure:
-
-```
-projects/
-├── frontend/
-│   ├── src/
-│   ├── tests/
-│   └── package.json
-├── backend/
-│   ├── src/
-│   ├── tests/
-│   └── requirements.txt
-└── infrastructure/
-    ├── terraform/
-    └── README.md
-```
-
-#### Microservices Architecture
-
-For microservices or domain-driven design:
-
-```
-projects/
-├── user-domain/
-│   ├── user-service/
-│   │   ├── src/
-│   │   └── tests/
-│   └── authentication-service/
-│       ├── src/
-│       └── tests/
-└── order-domain/
-    ├── order-service/
-    └── payment-service/
-```
-
-**Key Principle:** The architecture determines the structure. The Delivery Manager has full flexibility to organize projects based on what the System Architect designed.
-
-### Project Initialization
-
-When the **Delivery Manager** begins the implementation phase, they must initialize the project structure **before** assigning stories to implementation roles.
-
-#### Initialization Process
-
-1. **Review System Architecture** (`docs/artifacts/03-system-architect/system-architecture.md`)
-   - What tech stack was chosen? (React, Next.js, Python/FastAPI, Go, etc.)
-   - Single application or multiple services?
-   - Any framework-specific requirements?
-
-2. **Decide Project Structure**
-   - Simple app? → One folder: `projects/[app-name]/`
-   - Frontend + Backend? → Two folders: `projects/frontend/`, `projects/backend/`
-   - Microservices? → Nested: `projects/[domain]/[service]/`
-
-3. **Initialize Projects** (Tech-Specific)
-
-   **For React:**
-   ```bash
-   npx create-react-app projects/[name]
-   cd projects/[name]
-   npm install
-   ```
-
-   **For Next.js:**
-   ```bash
-   npx create-next-app projects/[name]
-   cd projects/[name]
-   npm install
-   ```
-
-   **For Python/FastAPI:**
-   ```bash
-   mkdir -p projects/[name]/src projects/[name]/tests
-   cd projects/[name]
-   python -m venv venv
-   source venv/bin/activate  # or venv\Scripts\activate on Windows
-   pip install fastapi uvicorn pytest
-   ```
-
-   **For Go:**
-   ```bash
-   mkdir -p projects/[name]
-   cd projects/[name]
-   go mod init [module-name]
-   ```
-
-   **For Node.js/Express:**
-   ```bash
-   mkdir -p projects/[name]/src projects/[name]/tests
-   cd projects/[name]
-   npm init -y
-   npm install express
-   npm install --save-dev jest
-   ```
-
-   **For Vanilla JavaScript/HTML:**
-   ```bash
-   mkdir -p projects/[name]/src projects/[name]/tests
-   cd projects/[name]
-   # Create basic structure manually
-   ```
-
-4. **Create Base Files**
-
-   Always create these foundation files:
-
-   - **`.gitignore`** - Exclude node_modules/, venv/, build/, etc.
-   - **`README.md`** - Project overview and setup instructions
-   - **`package.json`** or **`requirements.txt`** or **`go.mod`** - Dependencies
-   - **CI/CD config** (`.github/workflows/`) - If defined by DevOps Engineer
-
-5. **Commit Initial Structure**
-
-   ```bash
-   git add projects/[name]
-   git commit -m "Initialize [name] project - [tech stack]"
-   ```
-
-6. **Document in Work Tracking**
-
-   Add note to project plan or first feature:
-   ```markdown
-   ## Project Initialization
-   - Structure: projects/[name]/
-   - Tech stack: [framework/language]
-   - Initialized: [timestamp]
-   - Commands used: [initialization commands]
-   ```
-
-7. **THEN Assign First Story**
-
-   Only after project is initialized should you assign stories to implementation roles (20-22).
-
-### Code File Creation
-
-**CRITICAL: Implementation roles MUST use the `create_file` tool to create all code files.**
-
-#### File Paths
-
-All code files go under `/projects/[project-name]/`:
-
-- **Source code**: `projects/[name]/src/`
-- **Tests**: `projects/[name]/tests/` or `projects/[name]/__tests__/`
-- **Configuration**: `projects/[name]/` (root level)
-- **CI/CD**: `projects/[name]/.github/workflows/`
-- **Documentation**: `projects/[name]/docs/`
-
-#### Examples
-
-**Frontend Component:**
-```javascript
-create_file("projects/calculator-app/src/components/Calculator.jsx", [component code])
-```
-
-**Backend API:**
-```python
-create_file("projects/api-service/src/main.py", [FastAPI code])
-```
-
-**Tests:**
-```javascript
-create_file("projects/calculator-app/tests/calculator.test.js", [test code])
-```
-
-**CI/CD:**
-```yaml
-create_file("projects/calculator-app/.github/workflows/deploy.yml", [workflow config])
-```
-
-#### Tool Usage Pattern
-
-Implementation roles should follow this **TDD pattern**:
-
-1. **Receive story assignment** from Delivery Manager
-2. **Read story details** from `docs/work/features/[id]/stories/[id]-story.md`
-3. **Extract acceptance criteria** - these become test cases
-4. **Write tests FIRST** using `create_file` tool (e.g., `projects/app/tests/Button.test.js`)
-5. **Run tests** - they should FAIL (RED 🔴)
-6. **Write minimal code** using `create_file` tool to make tests pass (e.g., `projects/app/src/components/Button.jsx`)
-7. **Run tests** - they should PASS (GREEN 🟢)
-8. **Refactor code** while keeping tests green (♻️)
-9. **Update story audit log** with progress
-10. **Commit changes** to git with TDD phase indicators
-
-**Example commit messages:**
-- `"Add tests for user authentication - Story 00042 (TDD RED)"`
-- `"Implement user authentication - Story 00042 (TDD GREEN)"`
-- `"Refactor auth module for clarity - Story 00042 (TDD REFACTOR)"`
-
-### Git Strategy
-
-**Everything goes in git:**
-
-- ✅ Framework files (`docs/`, `agent.md`)
-- ✅ Planning artifacts (`docs/artifacts/`)
-- ✅ Work tracking (`docs/work/`)
-- ✅ Project code (`projects/`)
-- ❌ Build artifacts (use `.gitignore`)
-- ❌ Dependencies (node_modules/, venv/)
-- ❌ Environment files (.env)
-
-**Use `.gitignore` files:**
-
-- **Root `.gitignore`**: Global ignores (`.DS_Store`, `*.log`)
-- **Project `.gitignore`**: Project-specific (node_modules/, dist/, venv/)
-
-### Integration with Work Tracking
-
-Work tracking in `docs/work/` tracks features and stories **across all projects**.
-
-- Feature files reference which project they belong to
-- Story audit logs show which files were modified
-- `assignments.md` shows which implementation role is working on which story for which project
-
-**Example Story:**
-```markdown
-# Story 00042: Implement User Profile Page
-
-**Project**: projects/frontend/
-**Feature**: 00015-user-management
-**Assigned To**: Frontend Developer (Role 20)
-
-## Acceptance Criteria
-- [ ] Profile page component created at projects/frontend/src/pages/ProfilePage.jsx
-- [ ] API integration with projects/backend/src/routes/users.py
-- [ ] Tests created at projects/frontend/tests/ProfilePage.test.jsx
-
-## Audit Log
-[2025-11-07 14:30 UTC] ASSIGNMENT: Assigned to Frontend Developer
-[2025-11-07 14:45 UTC] STATUS: in-progress - Created ProfilePage.jsx
-[2025-11-07 15:00 UTC] STATUS: in-progress - Added API integration
-[2025-11-07 15:15 UTC] STATUS: done - Tests passing, PR merged
-```
+**📖 See [agent-project-structure.md](./agent-project-structure.md) for complete documentation** on:
+- Where code lives (`/projects/` folder structure)
+- Project structure options (simple/multi-component/microservices)
+- Project initialization by technology stack
+- Code file creation with `create_file` tool
+- TDD workflow (RED-GREEN-REFACTOR)
+- Git strategy for projects
+- Integration with work tracking
 
 ## History Tracking
 
@@ -731,153 +430,40 @@ Work tracking in `docs/work/` tracks features and stories **across all projects*
 
 ## Handover Process
 
-### Creating a Handover
-
-When preparing for handover, create `docs/handovers/handover.md` with:
-
-```markdown
-# Handover: [Current Role] → [Next Role]
-
-**Date**: [YYYY-MM-DD HH:mm UTC]  
-**Current Role**: [Role Number and Name]  
-**Next Role**: [Next Role Number and Name]
-
-## Work Completed
-
-[Summary of what was accomplished in current role]
-
-### Artifacts Created
-
-- `path/to/artifact1.md` - Brief description
-- `path/to/artifact2.md` - Brief description
-
-## Key Decisions Made
-
-1. [Decision 1]
-2. [Decision 2]
-
-## Next Steps
-
-[What the next role needs to do]
-
-### Inputs Available for Next Role
-
-- `path/to/input1.md`
-- `path/to/input2.md`
-
-### Expected Outputs from Next Role
-
-- [Artifact 1 name and purpose]
-- [Artifact 2 name and purpose]
-
-## Questions/Issues to Address
-
-[Any open questions or concerns for the next role]
-
-## Notes
-
-[Any additional context or information]
-```
-
-**CRITICAL**: The `**Next Role**:` field is essential - it tells the AI which role to assume when the human says "carry on" in a new chat window.
-
-### After Handover Created
-
-1. **Stage and commit all changes:**
-   ```bash
-   git add .
-   git commit -m "Completed [Role Name] - [UTC timestamp yyyyMMdd-HHmm]"
-   ```
-
-2. **Inform customer**: "Handover prepared. Please create a new chat context and we'll continue with [Next Role]."
-
-### Starting from Handover
-
-1. **Check for handover file**: Look for `handovers/handover.md`
-2. **Archive it**: Move to `handovers/handover-histories/[yyyyMMdd-HHmm]-handover.md`
-3. **Summarize to customer**: Present what was completed and what's next
-4. **Get confirmation**: "Ready to continue with [Next Role]?"
-5. **Proceed**: Begin the next role's work
+**📖 See [agent-handovers.md](./agent-handovers.md) for complete handover documentation**, including:
+- When to create handovers
+- Handover creation process and templates
+- After handover steps (git commit, inform customer)
+- Starting from handover (check, archive, assume role)
+- Handover best practices and troubleshooting
 
 ## Work Tracking System
 
-**⚠️ CRITICAL: Read [`/docs/work-tracking-instructions.md`](/docs/work-tracking-instructions.md) BEFORE using the work tracking system.**
-
-### When to Use Work Tracking
-
-**✅ USE for CLIENT PROJECTS:**
-- When helping a customer plan/build THEIR software project using ConceptShipAI
-- When the customer wants to track features, user stories, and assignments
-- For ongoing delivery work that needs progress tracking
-
-**❌ DO NOT USE for ConceptShipAI Development:**
-- When working on the ConceptShipAI template itself
-- When building/improving this framework
-- Use `DEVELOPMENT-TRACKER.md` instead for meta-development
-
-### Work Tracking Overview
-
-The work tracking system provides:
-- **Unique Numeric IDs**: Format `00001-feature-name` for all work items
-- **Append-Only Audit Logs**: Track status, assignment, and blocker changes
-- **recently-changed.md**: Quick view of last 30 days of activity
-- **Lean Handovers**: Reference work items by ID instead of duplicating content
-
-**Location**: `docs/work/`
-
-**Key Files**:
-- `docs/work/README.md` - System overview and workflow
-- `docs/work/assignments.md` - Current active assignments
-- `docs/work/recently-changed.md` - Recent activity log
-- `docs/work/templates/` - Feature and user story templates
-- `docs/work-tracking-instructions.md` - Comprehensive agent instructions
-
-### Integration with Roles
-
-**Project Manager (Role 12)**:
-- Manages backlog refinement
-- Creates features and user stories with unique IDs
-- Assigns work and tracks progress
-- Maintains assignments.md and recently-changed.md
-
-**All Roles**:
-- Can create backlog items in `docs/work/backlog/`
-- Reference work items by ID in artifacts and handovers
-- Update work item audit logs when making changes
-
-### Handovers with Work Tracking
-
-When using work tracking, keep handovers lean:
-
-```markdown
-# Handover: Business Analyst → Requirements Engineer
-
-## Context
-Feature 00001 (user-authentication) has been refined and is ready for detailed requirements.
-
-## Completed Work
-- Feature 00001 created with 4 user stories (see docs/work/features/todo/00001-user-authentication/)
-- Story IDs: 00042, 00043, 00044, 00045
-
-## Next Steps
-Requirements Engineer should:
-1. Review feature 00001 acceptance criteria
-2. Create detailed requirements for stories 00042-00045
-```
-
-**DO NOT duplicate work item details in handovers** - reference by ID instead.
+**📖 See [agent-work-tracking.md](./agent-work-tracking.md) for complete work tracking documentation**, including:
+- When to use work tracking (client projects vs template development)
+- System structure (features, stories, backlog, assignments)
+- ID format and numbering (00001-name pattern)
+- Work item lifecycle (backlog → todo → in-progress → done)
+- Role responsibilities (Delivery Manager primary, implementation roles update)
+- Assignment process and multi-role collaboration
+- Audit log standards and format
+- Lean handovers with work tracking (reference by ID)
+- Integration with artifacts and traceability
 
 ## Key Principles
 
 - **Conversational First**: Engage naturally with the customer, don't just generate documents
-- **Sequential Processing**: Complete each role fully before moving to the next
+- **Test Driven Development (TDD)**: ALL implementation work MUST write tests FIRST, then code (RED-GREEN-REFACTOR)
+- **Role-Based Processing**: Complete each role fully before moving to the next (but roles can be in any order)
 - **Artifact Dependencies**: Each role consumes specific artifacts and produces new ones
 - **Clear Documentation**: All artifacts must be clear, comprehensive, and actionable
 - **Traceability**: Maintain clear links between requirements, design, and implementation
 - **UTC Timestamps**: Always use UTC time in `yyyyMMdd-HHmm` format for filenames and `YYYY-MM-DD HH:mm UTC` for display
 - **History Tracking**: Document every interaction in the history folder
-- **Context Preservation**: Use handovers to maintain continuity across chat contexts
+- **Context Preservation**: Use handovers to maintain continuity across chat contexts (see agent-handovers.md)
 - **Version Control**: Commit after each role completion
+- **Work Tracking**: Use numeric IDs and audit logs for client projects (see agent-work-tracking.md)
+- **Project Structure**: Code lives in `/projects/` with structure defined by architecture (see agent-project-structure.md)
 
 ## Starting a New Project
 
