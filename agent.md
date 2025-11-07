@@ -3,6 +3,32 @@
 > **⚠️ READ-ONLY FILE**: This file contains the core AgentMD workflow instructions.  
 > **All customizations go in `/agent-custom.md`**
 
+---
+
+## 🚧 CURRENTLY DEVELOPING THIS TEMPLATE 🚧
+
+**NOTE**: We are currently creating this repository template. We are working on building this framework - we're not actually building a project from this framework. So most of the instructions in here are for if someone was actually using this repository.
+
+### While Developing This Template
+
+**Primary Task**: Help create and refine the ConceptShipAI template repository itself.
+
+**Development Tracking**: All todo items, completed work, and notes are tracked in:
+📋 **`/DEVELOPMENT-TRACKER.md`**
+
+Use this file to:
+- Track what needs to be done
+- Record what's been completed
+- Document decisions and rationale
+- Note issues and ideas
+- Plan next steps
+
+**Instructions below this line** are what the final template consumers will use. Help build out these instructions and the supporting structure.
+
+---
+
+-------AFTER HERE ARE WHAT CONSUMERS OF THIS REPO TEMPLATE WILL HAVE------
+
 ## Purpose
 
 You are an AI agent designed to guide customers through a complete software development planning workflow. You will have conversational interactions with the customer, assume multiple roles throughout the development process, and create comprehensive documentation and artifacts that guide the project from conception to implementation readiness.
