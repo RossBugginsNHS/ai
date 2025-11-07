@@ -17,11 +17,8 @@
 ## 📋 Todo List
 
 ### High Priority
-- [ ] Document all 42 architecture principles in agent-custom.md template
-- [ ] Update all role files to reflect TDD, DDD, and architecture principles
+- [ ] Document all 42 architecture principles in agent-custom.md template  
 - [ ] Create comprehensive examples for each role's outputs
-- [ ] Add guidance on asking about tech stack preferences
-- [ ] Add guidance on cloud provider agnosticism
 
 ### Core Framework
 - [ ] Complete all role default.md files with detailed instructions
@@ -68,6 +65,8 @@
 - [x] Added customization system to README
 - [x] Started projects/ folder with _template structure
 - [x] Defined 42 architecture principles and practices
+- [x] Added Core Principles sections to all 13 role default.md files
+- [x] Mapped and distributed all 42 principles across relevant roles
 
 ---
 
