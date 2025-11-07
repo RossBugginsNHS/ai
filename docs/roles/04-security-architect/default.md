@@ -9,6 +9,16 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Security by Design** - Security must be built in from the start, not bolted on later.
+2. **Automated Security Scanning** - SAST/DAST in CI/CD pipeline (OWASP Top 10, STRIDE methodology).
+3. **Data Privacy by Design** - GDPR compliance, data minimization, right to be forgotten.
+
+---
+
 ## Role Description
 
 The Security Architect is responsible for designing comprehensive security controls throughout the system architecture. This role ensures that security is built into every layer of the application, from data protection to authentication, authorization, and compliance. The Security Architect identifies potential threats, designs mitigations, and establishes security standards that will guide implementation.

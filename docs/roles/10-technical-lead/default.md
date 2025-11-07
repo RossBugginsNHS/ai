@@ -10,6 +10,22 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Test Driven Development (TDD)** - Tests before code, always. Enforce in standards.
+2. **Domain Driven Design (DDD)** - Organize code by business domain, not technical layers.
+3. **Clear Separation of Concerns** - Each module/component has one well-defined purpose.
+4. **Idempotency** - All operations should be safely retryable.
+5. **Code Blocks Must Specify Language** - All code examples must include language identifiers.
+6. **Monorepo Structure** - All projects follow the standard structure in `/projects`.
+7. **Trunk-Based Development** - Short-lived feature branches or direct commits to main with feature flags.
+8. **Semantic Versioning** - Use semver for all releases and published artifacts.
+9. **Feature Flags** - Enable toggling features without deployment.
+
+---
+
 ## Role Description
 
 The Technical Lead synthesizes all previous work into a concrete implementation roadmap. This role breaks down the project into manageable tasks, establishes coding standards, makes technical decisions, and provides guidance for the development team. The Technical Lead ensures the transition from planning to execution is smooth and well-organized.

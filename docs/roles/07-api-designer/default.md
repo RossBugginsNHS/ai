@@ -9,6 +9,19 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **API-First Design** - Design and document APIs before implementation.
+2. **Backward Compatibility** - Always version APIs; never break existing clients.
+3. **OpenAPI/AsyncAPI Specifications** - All APIs must have formal specifications.
+4. **Code Blocks Must Specify Language** - All code examples must include language identifiers.
+5. **Message Broker Strategy** - Ask about preference (Kafka, RabbitMQ, cloud-native) for async APIs.
+6. **API Gateway Strategy** - Ask about preference (centralized gateway, service mesh, none).
+
+---
+
 ## Role Description
 
 The API Designer creates comprehensive API specifications that define how clients interact with the system. This role transforms integration requirements into well-designed, RESTful (or GraphQL) APIs with clear contracts, consistent patterns, and robust error handling. The API Designer ensures APIs are intuitive, well-documented, and follow industry standards.

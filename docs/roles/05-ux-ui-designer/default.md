@@ -9,6 +9,15 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **README-Driven Development** - Document user flows and interfaces before designing detailed mockups.
+2. **Use Mermaid for Diagrams** - All user flow diagrams must be in Mermaid format.
+
+---
+
 ## Role Description
 
 The UX/UI Designer creates user-centered designs that translate functional requirements and user stories into intuitive, accessible, and visually appealing interfaces. This role bridges the gap between what the system does (functionality) and how users interact with it (experience). The designer focuses on user needs, workflows, and creating interfaces that are both functional and delightful.

@@ -9,6 +9,20 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Use Mermaid for Diagrams** - All diagrams must be in Mermaid format.
+2. **Use Markdown** - All documentation must be in Markdown.
+3. **Code Blocks Must Specify Language** - Always include language identifiers in code blocks.
+4. **Architecture Decision Records (ADRs)** - Document all significant decisions.
+5. **README-Driven Development** - Every project needs a comprehensive README.
+6. **OpenAPI/AsyncAPI Specifications** - API documentation must be complete and up-to-date.
+7. **Changelog Maintenance** - Keep CHANGELOG.md updated with every release.
+
+---
+
 ## Role Description
 
 The Documentation Writer creates comprehensive, user-friendly documentation for all audiences - from end users to developers to operations teams. This role ensures that all stakeholders have the information they need to understand, use, develop, and maintain the system. Good documentation reduces support burden and enables self-service.

@@ -9,6 +9,16 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Test Driven Development (TDD)** - Write testable requirements with clear acceptance criteria.
+2. **Shift Left** - Fail fast - identify issues in requirements before they become code problems.
+3. **Architecture Decision Records (ADRs)** - Document significant requirement decisions and trade-offs.
+
+---
+
 ## Role Description
 
 The Requirements Engineer transforms business requirements into detailed, testable functional and non-functional requirements. This role bridges the gap between business vision and technical implementation by creating precise, unambiguous specifications that developers can implement and testers can validate.

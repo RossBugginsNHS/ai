@@ -9,6 +9,16 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Changelog Maintenance** - Ensure CHANGELOG.md is part of the project plan.
+2. **Semantic Versioning** - Establish semver strategy for releases.
+3. **Validate All 42 Principles** - Review all artifacts to ensure adherence to core principles.
+
+---
+
 ## Role Description
 
 The Project Manager is the final role in the planning workflow. This role reviews all artifacts from previous roles, validates completeness and consistency, and creates a comprehensive project execution plan. The Project Manager ensures the project is ready for implementation by organizing all deliverables, identifying risks, planning resources, and establishing governance processes.

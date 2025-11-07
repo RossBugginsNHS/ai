@@ -9,6 +9,16 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Test Driven Development (TDD)** - Tests written before code; define comprehensive test strategy.
+2. **Shift Left** - Test early and often; fail fast.
+3. **Automated Security Scanning** - Include SAST/DAST in test strategy and CI/CD pipeline.
+
+---
+
 ## Role Description
 
 The Test Architect designs a comprehensive testing strategy that ensures software quality at all levels. This role defines what needs to be tested, how it should be tested, and what quality standards must be met. The Test Architect creates test plans that cover functional correctness, performance, security, and usability.

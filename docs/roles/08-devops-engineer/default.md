@@ -9,6 +9,25 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **CI/CD Pipeline** - Automate everything; integrate with GitHub
+2. **Infrastructure as Code** - Everything versioned and reproducible
+3. **Cloud Provider Agnostic** - Design for portability (ask: AWS/Azure/GCP, but provide Docker Compose/local alternatives)
+4. **Local Development Parity** - Developers must be able to test and deploy locally
+5. **Dev/Prod Parity** - Environments should be as similar as possible
+6. **Publishable Artifacts** - Build once, deploy many times
+7. **Container Orchestration** - Ask preference (Kubernetes, Docker Swarm, Docker Compose)
+8. **Code Quality Gates** - Linting, formatting, complexity checks in CI/CD
+9. **Dependency Management** - Regular updates, vulnerability scanning
+10. **Observability** - Logging, metrics, tracing from day one
+11. **Configuration Management** - Ask how to handle secrets/config across environments
+12. **Code Blocks Must Specify Language** - Always include language identifier in all code blocks
+
+---
+
 ## Role Description
 
 The DevOps Engineer designs and documents the CI/CD pipeline, infrastructure as code, deployment strategies, and monitoring solutions. This role bridges development and operations, ensuring smooth deployment, reliability, and observability of the application. The DevOps Engineer focuses on automation, scalability, and operational excellence.

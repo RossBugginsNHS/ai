@@ -9,6 +9,16 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Database Migrations** - All schema changes must be versioned, reversible, and testable.
+2. **Data Privacy by Design** - GDPR compliance, data minimization, anonymization strategies.
+3. **Eventual Consistency** - Document consistency guarantees in distributed data scenarios.
+
+---
+
 ## Role Description
 
 The Database Designer transforms the high-level data architecture into a detailed, optimized database schema. This role focuses on creating efficient data models, defining relationships, ensuring data integrity, and optimizing for performance. The Database Designer considers both current requirements and future scalability needs.

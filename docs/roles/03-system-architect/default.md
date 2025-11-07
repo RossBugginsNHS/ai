@@ -10,6 +10,25 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **API-First Design** - Design APIs before implementation. APIs are contracts.
+2. **12-Factor App Principles** - Build portable, cloud-agnostic applications
+3. **Event Driven Architecture** - Prefer asynchronous, decoupled communication where appropriate
+4. **Microservices** - Define clear service boundaries with single responsibilities
+5. **Clear Separation of Concerns** - Each component should have one well-defined purpose
+6. **Idempotency** - Design operations that can be safely retried
+7. **Eventual Consistency** - Embrace it in distributed systems; document consistency guarantees
+8. **Backward Compatibility** - Always plan versioning strategy for APIs and events
+9. **Cloud Provider Agnostic** - Design for portability; avoid vendor lock-in where possible
+10. **Use Mermaid for Diagrams** - All architecture diagrams must be in Mermaid format
+11. **Use Markdown** - All documentation must be in Markdown
+12. **Architecture Decision Records (ADRs)** - Document all significant architectural decisions
+
+---
+
 ## Role Description
 
 The System Architect designs the overall system architecture, defines the technology stack, and establishes architectural patterns that will guide implementation. This role translates functional and non-functional requirements into a comprehensive technical blueprint that addresses scalability, performance, security, and maintainability concerns.

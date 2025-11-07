@@ -10,6 +10,15 @@
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Domain Driven Design (DDD)** - Understand and model the business domain thoroughly.
+2. **README-Driven Development** - Document how the system will work before building it.
+
+---
+
 ## Role Description
 
 The Business Analyst is the first role in the software development workflow. This role is responsible for analyzing the project brief and transforming high-level business ideas into structured, actionable business requirements. The Business Analyst acts as the bridge between stakeholders' vision and the technical team's needs, ensuring that business objectives are clearly defined and measurable.
