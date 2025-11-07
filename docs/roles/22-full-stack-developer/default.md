@@ -19,6 +19,16 @@ Every role in the ConceptShipAI framework operates with these foundational value
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Test Driven Development (TDD)** - **ALWAYS write tests BEFORE writing code** for BOTH frontend and backend. Tests are written first based on requirements and acceptance criteria, then code is written to make tests pass.
+2. **Shift Left** - Fail fast - catch issues early through testing at all layers.
+3. **End-to-End Thinking** - Consider the full user journey from UI to database.
+
+---
+
 ## Role Description
 
 The Full-Stack Developer implements complete features from frontend to backend. This role takes user stories and implements the entire vertical slice - UI components, API endpoints, business logic, and database interactions. The Full-Stack Developer works iteratively, implementing small end-to-end increments, testing continuously, and ensuring the full stack works together seamlessly.
@@ -125,71 +135,417 @@ The Full-Stack Developer implements complete features from frontend to backend. 
 **Actions**:
 
 1. Review all relevant artifacts (designs, specs, schemas)
-2. Decide implementation order:
-   - **Backend-first**: Build API, then connect UI
-   - **Frontend-first**: Mock API, build UI, then implement real backend
-   - **Parallel**: Work on both simultaneously (smaller features)
+2. Decide implementation order based on feature complexity:
+   - **Backend-first TDD**: Write backend tests → Implement API → Write frontend tests → Implement UI
+   - **Frontend-first TDD**: Write frontend tests (with mocked API) → Implement UI → Write backend tests → Implement API
+   - **Parallel TDD** (for smaller features): Write all tests (frontend + backend) → Implement both layers
 3. Identify any gaps or questions
 4. Ask Delivery Manager or specialist roles for clarification
 
-### 3. Implement Backend (if backend-first or parallel)
+### 3. Write ALL Tests FIRST (RED) 🔴
 
-**CRITICAL: Use the `create_file` tool to create all code files.**
+**⚠️ CRITICAL: Test Driven Development (TDD) is MANDATORY for BOTH layers. Write all tests BEFORE writing any implementation code.**
 
-Backend code goes in: `projects/[name]/src/` or `projects/backend/src/`
+**Use `create_file` tool for all test files.**
 
-**Actions**:
+#### If Backend-First or Parallel:
+
+**A. Write Backend Tests First**
 
 1. **Create feature branch**
    ```bash
    git checkout -b feature/story-00042-complete-profile-feature
    ```
 
-2. **Write database migrations if needed (use create_file)**
-   
-   Example path: `projects/backend/migrations/001_add_profiles_table.py`
+2. **Write API endpoint tests (use create_file)**
 
-3. **Implement API endpoints (use create_file)**
-   
    ```python
-   // Call create_file tool with:
-   // Path: "projects/backend/src/routes/profiles.py"
+   // Path: "projects/backend/tests/api/test_profiles.py"
    // Content:
-   from fastapi import APIRouter
+   import pytest
+   from fastapi.testclient import TestClient
+   from src.main import app
+   
+   client = TestClient(app)
+   
+   def test_get_profile_success():
+       response = client.get("/users/123/profile")
+       assert response.status_code == 200
+       data = response.json()
+       assert data["user_id"] == 123
+       assert "name" in data
+       assert "bio" in data
+   
+   def test_get_profile_not_found():
+       response = client.get("/users/999/profile")
+       assert response.status_code == 404
+   
+   def test_update_profile_success():
+       response = client.put(
+           "/users/123/profile",
+           json={"name": "John Doe", "bio": "Software Developer"}
+       )
+       assert response.status_code == 200
+   ```
+
+3. **Write business logic tests (use create_file)**
+
+   ```python
+   // Path: "projects/backend/tests/test_profile_validator.py"
+   import pytest
+   from src.utils.profile_validator import validate_profile
+   
+   def test_validate_profile_valid():
+       assert validate_profile({"name": "John", "bio": "Developer"}) == True
+   
+   def test_validate_profile_name_too_long():
+       with pytest.raises(ValueError, match="Name too long"):
+           validate_profile({"name": "A" * 101, "bio": "Test"})
+   ```
+
+4. **Run backend tests - should FAIL (RED)**
+   ```bash
+   cd projects/backend
+   pytest
+   ```
+
+#### If Frontend-First or Parallel:
+
+**B. Write Frontend Tests**
+
+1. **Write component tests (use create_file)**
+
+   ```javascript
+   // Path: "projects/frontend/tests/ProfilePage.test.jsx"
+   import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+   import { ProfilePage } from '../src/pages/ProfilePage';
+   import { mockAPI } from '../mocks/api';
+   
+   describe('ProfilePage', () => {
+     test('displays user profile', async () => {
+       mockAPI.getProfile.mockResolvedValue({
+         user_id: 123,
+         name: 'John Doe',
+         bio: 'Software Developer'
+       });
+       
+       render(<ProfilePage userId={123} />);
+       
+       await waitFor(() => {
+         expect(screen.getByText('John Doe')).toBeInTheDocument();
+         expect(screen.getByText('Software Developer')).toBeInTheDocument();
+       });
+     });
+     
+     test('handles profile update', async () => {
+       render(<ProfilePage userId={123} />);
+       
+       fireEvent.change(screen.getByLabelText('Name'), {
+         target: { value: 'Jane Smith' }
+       });
+       fireEvent.click(screen.getByText('Save'));
+       
+       await waitFor(() => {
+         expect(mockAPI.updateProfile).toHaveBeenCalledWith(123, {
+           name: 'Jane Smith'
+         });
+       });
+     });
+     
+     test('displays error on load failure', async () => {
+       mockAPI.getProfile.mockRejectedValue(new Error('Not found'));
+       
+       render(<ProfilePage userId={999} />);
+       
+       await waitFor(() => {
+         expect(screen.getByText('Profile not found')).toBeInTheDocument();
+       });
+     });
+   });
+   ```
+
+2. **Run frontend tests - should FAIL (RED)**
+   ```bash
+   cd projects/frontend
+   npm test
+   ```
+
+3. **Commit ALL test files**
+   ```bash
+   git add projects/*/tests/
+   git commit -m "Add tests for profile feature - Story 00042 (TDD RED)"
+   ```
+
+### 4. Implement Code to Pass Tests (GREEN) 🟢
+
+**CRITICAL: Use the `create_file` tool to create all code files.**
+
+#### A. Implement Backend (if backend-first or parallel)
+
+1. **Write database migrations if needed (use create_file)**
+
+   ```python
+   // Path: "projects/backend/migrations/001_add_profiles_table.py"
+   from alembic import op
+   import sqlalchemy as sa
+   
+   def upgrade():
+       op.create_table(
+           'profiles',
+           sa.Column('user_id', sa.Integer, primary_key=True),
+           sa.Column('name', sa.String(100), nullable=False),
+           sa.Column('bio', sa.Text),
+           sa.Column('updated_at', sa.DateTime, server_default=sa.func.now())
+       )
+   ```
+
+2. **Implement API endpoints (use create_file)**
+
+   ```python
+   // Path: "projects/backend/src/routes/profiles.py"
+   from fastapi import APIRouter, HTTPException, status
+   from pydantic import BaseModel
+   from src.utils.profile_validator import validate_profile
+   from src.database import SessionLocal
    
    router = APIRouter()
    
+   class ProfileUpdate(BaseModel):
+       name: str
+       bio: str | None = None
+   
    @router.get("/users/{user_id}/profile")
    async def get_profile(user_id: int):
-       profile = await db.profiles.get(user_id)
-       return profile
-   ```
-
-4. **Implement business logic**
-   - Validation
-   - Error handling
-   - Logging
-
-5. **Write backend tests (use create_file)**
+       db = SessionLocal()
+       profile = db.query(Profile).filter_by(user_id=user_id).first()
+       
+       if not profile:
+           raise HTTPException(404, "Profile not found")
+       
+       return {
+           "user_id": profile.user_id,
+           "name": profile.name,
+           "bio": profile.bio
+       }
    
-   Example path: `projects/backend/tests/test_profiles.py`
-
-6. **Test API with Postman/curl**
-   ```bash
-   curl http://localhost:8000/users/123/profile
+   @router.put("/users/{user_id}/profile")
+   async def update_profile(user_id: int, data: ProfileUpdate):
+       validate_profile(data.dict())
+       
+       db = SessionLocal()
+       profile = db.query(Profile).filter_by(user_id=user_id).first()
+       
+       if not profile:
+           raise HTTPException(404, "Profile not found")
+       
+       profile.name = data.name
+       profile.bio = data.bio
+       db.commit()
+       
+       return {"status": "updated"}
    ```
 
-7. **Commit backend changes**
+3. **Run backend tests - should PASS (GREEN)**
    ```bash
-   git add projects/backend/
-   git commit -m "Add profile endpoints - Story 00042 (backend)"
+   cd projects/backend
+   pytest
    ```
 
-### 4. Implement Frontend (if frontend-first or parallel)
+4. **Commit backend implementation**
+   ```bash
+   git add projects/backend/src/ projects/backend/migrations/
+   git commit -m "Implement profile API - Story 00042 (TDD GREEN - backend)"
+   ```
 
-**Use `create_file` tool for all frontend code.**
+#### B. Implement Frontend (if frontend-first or parallel)
 
-Frontend code goes in: `projects/[name]/src/` or `projects/frontend/src/`
+1. **Create UI components (use create_file)**
+
+   ```javascript
+   // Path: "projects/frontend/src/pages/ProfilePage.jsx"
+   import React, { useState, useEffect } from 'react';
+   import { api } from '../api/client';
+   
+   export const ProfilePage = ({ userId }) => {
+     const [profile, setProfile] = useState(null);
+     const [error, setError] = useState(null);
+     const [editing, setEditing] = useState(false);
+     
+     useEffect(() => {
+       const loadProfile = async () => {
+         try {
+           const data = await api.getProfile(userId);
+           setProfile(data);
+         } catch (err) {
+           setError('Profile not found');
+         }
+       };
+       loadProfile();
+     }, [userId]);
+     
+     const handleSave = async (updates) => {
+       try {
+         await api.updateProfile(userId, updates);
+         setProfile({ ...profile, ...updates });
+         setEditing(false);
+       } catch (err) {
+         setError('Failed to update profile');
+       }
+     };
+     
+     if (error) {
+       return <div className="error">{error}</div>;
+     }
+     
+     if (!profile) {
+       return <div>Loading...</div>;
+     }
+     
+     return (
+       <div className="profile-page">
+         {editing ? (
+           <ProfileEdit profile={profile} onSave={handleSave} />
+         ) : (
+           <ProfileView profile={profile} onEdit={() => setEditing(true)} />
+         )}
+       </div>
+     );
+   };
+   ```
+
+2. **Run frontend tests - should PASS (GREEN)**
+   ```bash
+   cd projects/frontend
+   npm test
+   ```
+
+3. **Commit frontend implementation**
+   ```bash
+   git add projects/frontend/src/
+   git commit -m "Implement profile UI - Story 00042 (TDD GREEN - frontend)"
+   ```
+
+### 5. Refactor (Keep GREEN) ♻️
+
+**Actions**:
+
+1. **Review code for improvements across both layers**
+   - Remove duplication
+   - Improve naming
+   - Extract reusable components/functions
+   - Optimize queries and rendering
+   - Improve error handling
+
+2. **Refactor while keeping ALL tests passing**
+   - Make one improvement at a time
+   - Run tests after each change
+   - Ensure all tests still pass (both frontend and backend)
+
+3. **Run full test suite**
+   ```bash
+   cd projects/backend && pytest --cov
+   cd projects/frontend && npm test -- --coverage
+   ```
+
+4. **Verify coverage meets standards** (typically 80%+)
+
+5. **Commit refactored code**
+   ```bash
+   git add .
+   git commit -m "Refactor profile feature - Story 00042 (TDD REFACTOR)"
+   ```
+
+### 6. End-to-End Testing
+
+**Actions**:
+
+1. **Write E2E tests (use create_file)**
+
+   ```javascript
+   // Path: "projects/e2e/tests/profile.spec.js"
+   import { test, expect } from '@playwright/test';
+   
+   test('user can view and edit profile', async ({ page }) => {
+     await page.goto('/profile/123');
+     
+     // Verify profile displays
+     await expect(page.locator('h1')).toContainText('John Doe');
+     
+     // Click edit
+     await page.click('button:has-text("Edit")');
+     
+     // Update name
+     await page.fill('input[name="name"]', 'Jane Smith');
+     await page.click('button:has-text("Save")');
+     
+     // Verify updated
+     await expect(page.locator('h1')).toContainText('Jane Smith');
+   });
+   ```
+
+2. **Run E2E tests**
+   ```bash
+   cd projects
+   npm run test:e2e
+   ```
+
+3. **Commit E2E tests**
+   ```bash
+   git add projects/e2e/
+   git commit -m "Add E2E tests for profile feature - Story 00042"
+   ```
+
+### 7. Submit for Review
+
+   ```
+
+### 7. Submit for Review
+
+**Actions**:
+
+1. Push feature branch to remote
+2. Create pull request with:
+   - Clear description
+   - Screenshots/demo of UI changes
+   - API documentation if new endpoints
+   - Reference to story ID
+   - Test results (frontend + backend + E2E)
+   - Test coverage reports
+3. Add audit log entry: "STATUS: in-review - PR #123 created"
+4. Request review from Technical Lead or peers
+
+### 8. Address Feedback
+
+**Actions**:
+
+1. Respond to code review comments
+2. Make requested changes using TDD (write/update tests first, then code)
+3. Push updates to PR
+4. Re-run all tests to ensure they still pass
+5. Get approval
+
+### 9. Complete Story
+
+**Actions**:
+
+1. Merge PR (after approval and passing CI/CD)
+2. Verify deployment to test environment
+3. Test end-to-end functionality in test environment
+4. Add audit log entry: "STATUS: done - Deployed to test, ready for QA"
+5. Notify Delivery Manager of completion
+
+### 10. Iterate
+
+**Actions**:
+
+1. Gather feedback from QA or users
+2. If issues found, create new story or fix immediately using TDD
+3. If approved, story moves to done
+4. Move to next assigned story
+
+---
+
+## Tools & Technologies
 
 **Actions**:
 

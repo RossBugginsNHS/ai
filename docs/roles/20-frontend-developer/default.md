@@ -19,6 +19,16 @@ Every role in the ConceptShipAI framework operates with these foundational value
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Test Driven Development (TDD)** - **ALWAYS write tests BEFORE writing code**. Tests are written first based on requirements and acceptance criteria, then code is written to make tests pass.
+2. **Shift Left** - Fail fast - catch issues early through testing.
+3. **Code Quality** - Follow coding standards, linting rules, and maintain high test coverage.
+
+---
+
 ## Role Description
 
 The Frontend Developer implements user-facing features and interfaces. This role takes design specifications, API contracts, and user stories, then writes actual code to bring them to life. The Frontend Developer works iteratively, implementing small increments, testing continuously, and coordinating with Backend Developers and other specialists.
@@ -112,13 +122,115 @@ The Frontend Developer implements user-facing features and interfaces. This role
 4. Identify any questions or gaps
 5. Ask Delivery Manager or specialist roles for clarification if needed
 
-### 3. Implement Feature
+### 3. Write Tests FIRST (RED) 🔴
+
+**⚠️ CRITICAL: Test Driven Development (TDD) is MANDATORY. Write tests BEFORE writing any implementation code.**
+
+**Use `create_file` tool for all test files.**
+
+All tests go in `/projects/[project-name]/`:
+- Unit/Integration tests: `projects/[name]/tests/` or `projects/[name]/__tests__/`
+- E2E tests: `projects/[name]/e2e/` or `projects/[name]/cypress/`
+
+**Actions**:
+
+1. **Create feature branch in git**
+   ```bash
+   git checkout -b feature/story-00042-user-profile
+   ```
+
+2. **Review acceptance criteria from story**
+   - Extract testable conditions
+   - Identify edge cases
+   - Define expected behaviors
+
+3. **Write unit tests for components (use create_file)**
+
+   **Example: Test file created BEFORE component exists**
+   ```javascript
+   // Call create_file tool with:
+   // Path: "projects/calculator-app/tests/Calculator.test.jsx"
+   // Content:
+   import { render, screen, fireEvent } from '@testing-library/react';
+   import { Calculator } from '../src/components/Calculator';
+   
+   describe('Calculator Component', () => {
+     test('renders calculator display showing zero initially', () => {
+       render(<Calculator />);
+       expect(screen.getByTestId('display')).toHaveTextContent('0');
+     });
+     
+     test('displays number when button clicked', () => {
+       render(<Calculator />);
+       fireEvent.click(screen.getByText('5'));
+       expect(screen.getByTestId('display')).toHaveTextContent('5');
+     });
+     
+     test('performs addition correctly', () => {
+       render(<Calculator />);
+       fireEvent.click(screen.getByText('3'));
+       fireEvent.click(screen.getByText('+'));
+       fireEvent.click(screen.getByText('7'));
+       fireEvent.click(screen.getByText('='));
+       expect(screen.getByTestId('display')).toHaveTextContent('10');
+     });
+     
+     test('handles invalid operations gracefully', () => {
+       render(<Calculator />);
+       fireEvent.click(screen.getByText('+'));
+       fireEvent.click(screen.getByText('='));
+       expect(screen.getByTestId('display')).toHaveTextContent('Error');
+     });
+   });
+   ```
+
+4. **Write integration tests for API interactions** (if applicable)
+
+   ```javascript
+   // Path: "projects/calculator-app/tests/integration/CalculatorAPI.test.jsx"
+   import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+   import { Calculator } from '../src/components/Calculator';
+   import { mockAPI } from '../mocks/api';
+   
+   describe('Calculator API Integration', () => {
+     test('saves calculation history to backend', async () => {
+       render(<Calculator />);
+       fireEvent.click(screen.getByText('5'));
+       fireEvent.click(screen.getByText('+'));
+       fireEvent.click(screen.getByText('3'));
+       fireEvent.click(screen.getByText('='));
+       
+       await waitFor(() => {
+         expect(mockAPI.saveHistory).toHaveBeenCalledWith({
+           operation: '5 + 3',
+           result: 8
+         });
+       });
+     });
+   });
+   ```
+
+5. **Run tests - they should FAIL (RED state)**
+   ```bash
+   cd projects/[project-name]
+   npm test
+   ```
+   
+   Expected output: ❌ All tests fail because implementation doesn't exist yet.
+   This is CORRECT and EXPECTED in TDD!
+
+6. **Commit test files**
+   ```bash
+   git add projects/[project-name]/tests/
+   git commit -m "Add tests for Calculator component - Story 00042 (TDD RED)"
+   ```
+
+### 4. Implement Code to Pass Tests (GREEN) 🟢
 
 **CRITICAL: Use the `create_file` tool to create all code files.**
 
 All code goes in `/projects/[project-name]/`:
 - Source code: `projects/[name]/src/`
-- Tests: `projects/[name]/tests/` or `projects/[name]/__tests__/`
 - Styles: `projects/[name]/src/` (colocated with components)
 
 **Actions**:
@@ -127,14 +239,9 @@ All code goes in `/projects/[project-name]/`:
    - Example: `projects/calculator-app/src/components/Calculator.jsx`
    - Check if file exists (read it first if modifying)
 
-2. **Create feature branch in git**
-   ```bash
-   git checkout -b feature/story-00042-user-profile
-   ```
+2. **Write MINIMAL code to make tests pass (use create_file)**
 
-3. **Write code using `create_file` tool**
-
-   **Example: Create a component**
+   **Example: Create component that satisfies tests**
    ```javascript
    // Call create_file tool with:
    // Path: "projects/calculator-app/src/components/Calculator.jsx"
@@ -144,23 +251,81 @@ All code goes in `/projects/[project-name]/`:
    
    export const Calculator = () => {
      const [display, setDisplay] = useState('0');
+     const [currentValue, setCurrentValue] = useState(0);
+     const [operation, setOperation] = useState(null);
+     const [waitingForOperand, setWaitingForOperand] = useState(false);
      
      const handleNumberClick = (num) => {
-       setDisplay(display === '0' ? num : display + num);
+       if (waitingForOperand) {
+         setDisplay(num);
+         setWaitingForOperand(false);
+       } else {
+         setDisplay(display === '0' ? num : display + num);
+       }
+     };
+     
+     const handleOperationClick = (op) => {
+       const inputValue = parseFloat(display);
+       
+       if (currentValue === 0) {
+         setCurrentValue(inputValue);
+       } else if (operation) {
+         const result = performOperation(currentValue, inputValue, operation);
+         setDisplay(String(result));
+         setCurrentValue(result);
+       }
+       
+       setWaitingForOperand(true);
+       setOperation(op);
+     };
+     
+     const handleEquals = () => {
+       const inputValue = parseFloat(display);
+       
+       if (operation) {
+         const result = performOperation(currentValue, inputValue, operation);
+         setDisplay(String(result));
+         setCurrentValue(0);
+         setOperation(null);
+         setWaitingForOperand(true);
+       }
+     };
+     
+     const performOperation = (a, b, op) => {
+       if (isNaN(a) || isNaN(b)) return 'Error';
+       switch(op) {
+         case '+': return a + b;
+         case '-': return a - b;
+         case '*': return a * b;
+         case '/': return b !== 0 ? a / b : 'Error';
+         default: return b;
+       }
      };
      
      return (
        <div className="calculator">
-         <div className="display">{display}</div>
+         <div className="display" data-testid="display">{display}</div>
          <div className="buttons">
-           {/* Button grid */}
+           {/* Numbers */}
+           {[1,2,3,4,5,6,7,8,9,0].map(num => (
+             <button key={num} onClick={() => handleNumberClick(String(num))}>
+               {num}
+             </button>
+           ))}
+           {/* Operations */}
+           <button onClick={() => handleOperationClick('+')}>+</button>
+           <button onClick={() => handleOperationClick('-')}>-</button>
+           <button onClick={() => handleOperationClick('*')}>*</button>
+           <button onClick={() => handleOperationClick('/')}>/</button>
+           <button onClick={handleEquals}>=</button>
          </div>
        </div>
      );
    };
    ```
 
-   **Example: Create styles**
+3. **Create styles (use create_file)**
+
    ```css
    // Call create_file tool with:
    // Path: "projects/calculator-app/src/components/Calculator.css"
@@ -169,6 +334,8 @@ All code goes in `/projects/[project-name]/`:
      max-width: 400px;
      margin: 0 auto;
      padding: 20px;
+     border: 2px solid #333;
+     border-radius: 8px;
    }
    
    .display {
@@ -177,21 +344,43 @@ All code goes in `/projects/[project-name]/`:
      font-size: 2rem;
      padding: 20px;
      text-align: right;
+     margin-bottom: 20px;
+     border-radius: 4px;
+   }
+   
+   .buttons {
+     display: grid;
+     grid-template-columns: repeat(4, 1fr);
+     gap: 10px;
+   }
+   
+   button {
+     padding: 20px;
+     font-size: 1.2rem;
+     border: none;
+     background: #f0f0f0;
+     cursor: pointer;
+     border-radius: 4px;
+   }
+   
+   button:hover {
+     background: #e0e0e0;
    }
    ```
 
-4. **Write code incrementally**:
-   - Start with component structure
-   - Implement core functionality
-   - Add styling
-   - Connect to APIs (if needed)
-   - Handle edge cases
-   
-5. **Test locally as you code**
+4. **Run tests - they should PASS (GREEN state)**
    ```bash
    cd projects/[project-name]
-   npm start  # or npm run dev
+   npm test
    ```
+   
+   Expected output: ✅ All tests pass!
+
+5. **If tests fail, fix implementation (not tests)**
+   - Debug the code
+   - Make minimal changes to pass tests
+   - Re-run tests
+   - Repeat until all tests pass
 
 6. **Run linter and formatter**
    ```bash
@@ -199,63 +388,43 @@ All code goes in `/projects/[project-name]/`:
    npm run format
    ```
 
-7. **Commit frequently with clear messages**
+7. **Commit implementation code**
    ```bash
-   git add projects/[project-name]/src/components/Calculator.jsx
-   git commit -m "Add Calculator component - Story 00042"
+   git add projects/[project-name]/src/
+   git commit -m "Implement Calculator component - Story 00042 (TDD GREEN)"
    ```
-   - Start with component structure
-   - Implement core functionality
-   - Add styling
-   - Connect to APIs
-   - Handle edge cases
-4. Test locally as you code
-5. Run linter and formatter
-6. Commit frequently with clear messages
 
-### 4. Write Tests
-
-**Use `create_file` tool for all test files.**
+### 5. Refactor (Keep GREEN) ♻️
 
 **Actions**:
 
-1. **Create unit tests for components**
+1. **Review code for improvements**
+   - Remove duplication
+   - Improve naming
+   - Extract reusable functions/components
+   - Optimize performance
+   - Improve readability
 
-   ```javascript
-   // Call create_file tool with:
-   // Path: "projects/calculator-app/tests/Calculator.test.jsx"
-   // Content:
-   import { render, screen, fireEvent } from '@testing-library/react';
-   import { Calculator } from '../src/components/Calculator';
-   
-   describe('Calculator', () => {
-     test('renders calculator display', () => {
-       render(<Calculator />);
-       expect(screen.getByText('0')).toBeInTheDocument();
-     });
-     
-     test('handles number click', () => {
-       render(<Calculator />);
-       fireEvent.click(screen.getByText('5'));
-       expect(screen.getByText('5')).toBeInTheDocument();
-     });
-   });
-   ```
+2. **Refactor while keeping tests passing**
+   - Make one improvement at a time
+   - Run tests after each change
+   - Ensure all tests still pass
 
-2. **Write integration tests for API connections** (if applicable)
-
-3. **Write E2E tests for critical user flows** (if applicable)
-
-4. **Ensure test coverage meets project standards**
-
-5. **Run full test suite locally**
+3. **Run full test suite**
    ```bash
-   cd projects/[project-name]
    npm test
    npm run test:coverage
    ```
 
-### 5. Submit for Review
+4. **Verify coverage meets standards** (typically 80%+)
+
+5. **Commit refactored code**
+   ```bash
+   git add .
+   git commit -m "Refactor Calculator component - Story 00042 (TDD REFACTOR)"
+   ```
+
+### 6. Submit for Review
 
 **Actions**:
 1. Push feature branch to remote
@@ -264,19 +433,20 @@ All code goes in `/projects/[project-name]/`:
    - Screenshots/video if UI changes
    - Reference to story ID
    - Test results
+   - Test coverage report
 3. Add audit log entry: "STATUS: in-review - PR #123 created"
 4. Request review from Technical Lead or peers
 
-### 6. Address Feedback
+### 7. Address Feedback
 
 **Actions**:
 1. Respond to code review comments
-2. Make requested changes
+2. Make requested changes using TDD (write/update tests first, then code)
 3. Push updates to PR
-4. Re-run tests
+4. Re-run tests to ensure all still pass
 5. Get approval
 
-### 7. Complete Story
+### 8. Complete Story
 
 **Actions**:
 1. Merge PR (after approval and passing CI/CD)
@@ -326,12 +496,14 @@ All code goes in `/projects/[project-name]/`:
 - Handle loading and error states
 
 ### Testing
-- Write tests BEFORE deploying
+- **Write tests BEFORE writing code** (TDD is mandatory)
+- Follow RED-GREEN-REFACTOR cycle
 - Test happy paths and edge cases
 - Test accessibility with screen readers
 - Test across browsers (Chrome, Firefox, Safari, Edge)
 - Test responsive designs on different screen sizes
 - Aim for >80% code coverage
+- Run tests before every commit
 
 ### Performance
 - Lazy load components and routes

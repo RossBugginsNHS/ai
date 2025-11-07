@@ -19,6 +19,16 @@ Every role in the ConceptShipAI framework operates with these foundational value
 
 ---
 
+## Core Principles
+
+These principles guide this role's work. Follow these unless overridden in `custom.md`.
+
+1. **Test Driven Development (TDD)** - **ALWAYS write tests BEFORE writing code**. Tests are written first based on requirements, API specifications, and acceptance criteria, then code is written to make tests pass.
+2. **Shift Left** - Fail fast - catch issues early through testing.
+3. **Security First** - Validate input, sanitize output, follow security best practices.
+
+---
+
 ## Role Description
 
 The Backend Developer implements server-side logic, APIs, database interactions, and business rules. This role takes API specifications, database schemas, and user stories, then writes actual code to implement backend functionality. The Backend Developer works iteratively, implementing small increments, testing continuously, and coordinating with Frontend Developers and other specialists.
@@ -126,27 +136,178 @@ The Backend Developer implements server-side logic, APIs, database interactions,
 4. Check for dependencies on other services
 5. Ask Delivery Manager or specialist roles for clarification if needed
 
-### 3. Implement Feature
+### 3. Write Tests FIRST (RED) 🔴
+
+**⚠️ CRITICAL: Test Driven Development (TDD) is MANDATORY. Write tests BEFORE writing any implementation code.**
+
+**Use `create_file` tool for all test files.**
+
+All tests go in `/projects/[project-name]/`:
+- Unit/Integration tests: `projects/[name]/tests/`
+- API tests: `projects/[name]/tests/api/`
+
+**Actions**:
+
+1. **Create feature branch in git**
+   ```bash
+   git checkout -b feature/story-00042-user-endpoint
+   ```
+
+2. **Review acceptance criteria and API specifications**
+   - Extract testable conditions
+   - Identify edge cases
+   - Define expected behaviors and error cases
+
+3. **Write API endpoint tests (use create_file)**
+
+   **Example: Test file created BEFORE endpoint exists**
+   ```python
+   // Call create_file tool with:
+   // Path: "projects/api-service/tests/api/test_users.py"
+   // Content:
+   import pytest
+   from fastapi.testclient import TestClient
+   from src.main import app
+   
+   client = TestClient(app)
+   
+   def test_create_user_success():
+       """Test successful user registration"""
+       response = client.post(
+           "/users",
+           json={"email": "test@example.com", "password": "secure123"}
+       )
+       assert response.status_code == 201
+       data = response.json()
+       assert data["email"] == "test@example.com"
+       assert "id" in data
+       assert "password" not in data  # Never return password
+   
+   def test_create_user_invalid_email():
+       """Test user registration with invalid email"""
+       response = client.post(
+           "/users",
+           json={"email": "not-an-email", "password": "secure123"}
+       )
+       assert response.status_code == 400
+       assert "Invalid email" in response.json()["detail"]
+   
+   def test_create_user_missing_password():
+       """Test user registration without password"""
+       response = client.post(
+           "/users",
+           json={"email": "test@example.com"}
+       )
+       assert response.status_code == 422  # Validation error
+   
+   def test_create_user_duplicate_email():
+       """Test user registration with existing email"""
+       # Create first user
+       client.post(
+           "/users",
+           json={"email": "duplicate@example.com", "password": "pass123"}
+       )
+       # Try to create duplicate
+       response = client.post(
+           "/users",
+           json={"email": "duplicate@example.com", "password": "pass456"}
+       )
+       assert response.status_code == 409  # Conflict
+       assert "Email already exists" in response.json()["detail"]
+   
+   def test_create_user_weak_password():
+       """Test user registration with weak password"""
+       response = client.post(
+           "/users",
+           json={"email": "test@example.com", "password": "123"}
+       )
+       assert response.status_code == 400
+       assert "Password too weak" in response.json()["detail"]
+   ```
+
+4. **Write unit tests for business logic (use create_file)**
+
+   ```python
+   // Path: "projects/api-service/tests/test_password_validator.py"
+   // Content:
+   import pytest
+   from src.utils.password_validator import validate_password
+   
+   def test_validate_password_strong():
+       assert validate_password("SecureP@ssw0rd") == True
+   
+   def test_validate_password_too_short():
+       with pytest.raises(ValueError, match="at least 8 characters"):
+           validate_password("short")
+   
+   def test_validate_password_no_special_chars():
+       with pytest.raises(ValueError, match="special character"):
+           validate_password("NoSpecialChar123")
+   ```
+
+5. **Write database tests if migrations needed (use create_file)**
+
+   ```python
+   // Path: "projects/api-service/tests/test_user_model.py"
+   // Content:
+   import pytest
+   from src.models.user import User
+   from src.database import SessionLocal
+   
+   @pytest.fixture
+   def db():
+       db = SessionLocal()
+       yield db
+       db.close()
+   
+   def test_user_creation(db):
+       user = User(email="test@example.com", password_hash="hashed")
+       db.add(user)
+       db.commit()
+       
+       assert user.id is not None
+       assert user.created_at is not None
+   
+   def test_email_uniqueness(db):
+       user1 = User(email="test@example.com", password_hash="hash1")
+       db.add(user1)
+       db.commit()
+       
+       user2 = User(email="test@example.com", password_hash="hash2")
+       db.add(user2)
+       
+       with pytest.raises(IntegrityError):
+           db.commit()
+   ```
+
+6. **Run tests - they should FAIL (RED state)**
+   ```bash
+   cd projects/[project-name]
+   pytest
+   # or
+   npm test
+   ```
+   
+   Expected output: ❌ All tests fail because implementation doesn't exist yet.
+   This is CORRECT and EXPECTED in TDD!
+
+7. **Commit test files**
+   ```bash
+   git add projects/[project-name]/tests/
+   git commit -m "Add tests for user registration endpoint - Story 00042 (TDD RED)"
+   ```
+
+### 4. Implement Code to Pass Tests (GREEN) 🟢
 
 **CRITICAL: Use the `create_file` tool to create all code files.**
 
 All code goes in `/projects/[project-name]/`:
 - Source code: `projects/[name]/src/`
-- Tests: `projects/[name]/tests/`
 - Migrations: `projects/[name]/migrations/` or `projects/[name]/alembic/`
 
 **Actions**:
 
-1. **Determine file to create/modify**
-   - Example: `projects/api-service/src/routes/users.py`
-   - Check if file exists (read it first if modifying)
-
-2. **Create feature branch in git**
-   ```bash
-   git checkout -b feature/story-00042-user-endpoint
-   ```
-
-3. **Write database migrations if needed (use create_file)**
+1. **Write database migrations if needed (use create_file)**
 
    **Example: Alembic migration (Python)**
    ```python
@@ -164,165 +325,178 @@ All code goes in `/projects/[project-name]/`:
        op.create_table(
            'users',
            sa.Column('id', sa.Integer, primary_key=True),
-           sa.Column('email', sa.String(255), nullable=False),
+           sa.Column('email', sa.String(255), nullable=False, unique=True),
            sa.Column('password_hash', sa.String(255), nullable=False),
            sa.Column('created_at', sa.DateTime, server_default=sa.func.now())
        )
+       op.create_index('idx_users_email', 'users', ['email'])
    
    def downgrade():
        op.drop_table('users')
    ```
 
-4. **Implement API endpoints (use create_file)**
+2. **Implement API endpoints (use create_file)**
 
    **Example: FastAPI endpoint**
    ```python
    // Call create_file tool with:
    // Path: "projects/api-service/src/routes/users.py"
    // Content:
-   from fastapi import APIRouter, HTTPException
-   from pydantic import BaseModel
+   from fastapi import APIRouter, HTTPException, status
+   from pydantic import BaseModel, EmailStr
+   from src.utils.password_validator import validate_password, hash_password
+   from src.models.user import User
+   from src.database import SessionLocal
+   from sqlalchemy.exc import IntegrityError
    
    router = APIRouter()
    
    class UserCreate(BaseModel):
-       email: str
+       email: EmailStr
        password: str
    
-   @router.post("/users")
+   @router.post("/users", status_code=status.HTTP_201_CREATED)
    async def create_user(user: UserCreate):
-       # Validate input
-       if not user.email or '@' not in user.email:
-           raise HTTPException(400, "Invalid email")
+       # Validate password strength
+       try:
+           validate_password(user.password)
+       except ValueError as e:
+           raise HTTPException(400, str(e))
        
        # Hash password
        password_hash = hash_password(user.password)
        
        # Save to database
-       user_id = await db.users.insert(email=user.email, password_hash=password_hash)
-       
-       return {"id": user_id, "email": user.email}
+       db = SessionLocal()
+       try:
+           new_user = User(email=user.email, password_hash=password_hash)
+           db.add(new_user)
+           db.commit()
+           db.refresh(new_user)
+           
+           return {"id": new_user.id, "email": new_user.email}
+           
+       except IntegrityError:
+           db.rollback()
+           raise HTTPException(
+               status_code=status.HTTP_409_CONFLICT,
+               detail="Email already exists"
+           )
+       finally:
+           db.close()
    ```
 
-5. **Implement business logic**
-   - Add validation
-   - Add error handling
-   - Add logging
+3. **Implement business logic utilities (use create_file)**
+
+   ```python
+   // Path: "projects/api-service/src/utils/password_validator.py"
+   // Content:
+   import re
+   import bcrypt
    
-6. **Test locally as you code**
+   def validate_password(password: str) -> bool:
+       if len(password) < 8:
+           raise ValueError("Password must be at least 8 characters")
+       
+       if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+           raise ValueError("Password must contain at least one special character")
+       
+       if not re.search(r'[0-9]', password):
+           raise ValueError("Password must contain at least one number")
+       
+       return True
+   
+   def hash_password(password: str) -> str:
+       return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+   ```
+
+4. **Run tests - they should PASS (GREEN state)**
    ```bash
    cd projects/[project-name]
-   # Run the server
-   uvicorn src.main:app --reload
-   
-   # Test with curl
-   curl -X POST http://localhost:8000/users \
-     -H "Content-Type: application/json" \
-     -d '{"email":"test@example.com","password":"secret123"}'
+   pytest
+   # or
+   npm test
    ```
+   
+   Expected output: ✅ All tests pass!
 
-7. **Run linter and formatter**
+5. **If tests fail, fix implementation (not tests)**
+   - Debug the code
+   - Make minimal changes to pass tests
+   - Re-run tests
+   - Repeat until all tests pass
+
+6. **Run linter and formatter**
    ```bash
    black src/
    ruff check src/
    # or
-   eslint src/
-   prettier --write src/
+   eslint src/ && prettier --write src/
    ```
 
-8. **Commit frequently with clear messages**
+7. **Commit implementation code**
    ```bash
-   git add projects/[project-name]/src/routes/
-   git commit -m "Add user registration endpoint - Story 00042"
+   git add projects/[project-name]/src/ projects/[project-name]/migrations/
+   git commit -m "Implement user registration endpoint - Story 00042 (TDD GREEN)"
    ```
 
-### 4. Write Tests
-
-**Use `create_file` tool for all test files.**
+### 5. Refactor (Keep GREEN) ♻️
 
 **Actions**:
 
-1. **Create unit tests for business logic**
+1. **Review code for improvements**
+   - Remove duplication
+   - Improve naming
+   - Extract reusable functions
+   - Optimize database queries
+   - Improve error handling
+   - Add logging
 
-   ```python
-   // Call create_file tool with:
-   // Path: "projects/api-service/tests/test_users.py"
-   // Content:
-   import pytest
-   from src.routes.users import UserCreate, create_user
-   
-   def test_create_user_valid():
-       user = UserCreate(email="test@example.com", password="secret123")
-       result = await create_user(user)
-       assert result["email"] == "test@example.com"
-       assert "id" in result
-   
-   def test_create_user_invalid_email():
-       user = UserCreate(email="invalid", password="secret123")
-       with pytest.raises(HTTPException) as exc:
-           await create_user(user)
-       assert exc.value.status_code == 400
-   ```
+2. **Refactor while keeping tests passing**
+   - Make one improvement at a time
+   - Run tests after each change
+   - Ensure all tests still pass
 
-2. **Write integration tests for database interactions**
-
-3. **Write API tests for endpoints** (using requests or httpx)
-
-   ```python
-   // Call create_file tool with:
-   // Path: "projects/api-service/tests/test_api_users.py"
-   // Content:
-   from fastapi.testclient import TestClient
-   from src.main import app
-   
-   client = TestClient(app)
-   
-   def test_create_user_endpoint():
-       response = client.post("/users", json={
-           "email": "test@example.com",
-           "password": "secret123"
-       })
-       assert response.status_code == 200
-       assert response.json()["email"] == "test@example.com"
-   ```
-
-4. **Test authentication and authorization**
-
-5. **Test error handling**
-
-6. **Ensure test coverage meets project standards**
-
-7. **Run full test suite locally**
+3. **Run full test suite**
    ```bash
-   cd projects/[project-name]
-   pytest
    pytest --cov=src --cov-report=html
+   # or
+   npm test -- --coverage
    ```
 
-### 5. Submit for Review
+4. **Verify coverage meets standards** (typically 80%+)
+
+5. **Commit refactored code**
+   ```bash
+   git add .
+   git commit -m "Refactor user registration logic - Story 00042 (TDD REFACTOR)"
+   ```
+
+### 6. Submit for Review
 
 **Actions**:
 
 1. Push feature branch to remote
 2. Create pull request with:
    - Clear description
-   - API examples if new endpoints
+   - API documentation/examples if new endpoints
    - Reference to story ID
    - Test results
+   - Test coverage report
 3. Add audit log entry: "STATUS: in-review - PR #123 created"
 4. Request review from Technical Lead or peers
 
-### 6. Address Feedback
+### 7. Address Feedback
 
 **Actions**:
 
 1. Respond to code review comments
-2. Make requested changes
+2. Make requested changes using TDD (write/update tests first, then code)
 3. Push updates to PR
-4. Re-run tests
+4. Re-run tests to ensure all still pass
 5. Get approval
 
-### 7. Complete Story
+### 8. Complete Story
 
 **Actions**:
 

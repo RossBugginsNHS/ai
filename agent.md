@@ -336,14 +336,32 @@ After planning, work shifts to **iterative implementation and delivery**:
 3. **Specialist Roles (1-11, 13-19)** provide expertise as needed during implementation
 4. Work proceeds in **iterations** - build, test, deploy, gather feedback, repeat
 
+**🔴 CRITICAL: Test Driven Development (TDD) is MANDATORY**
+
+All implementation roles (20-22) **MUST follow TDD**:
+
+1. **Write tests FIRST** based on requirements and acceptance criteria (RED 🔴)
+2. **Implement code** to make tests pass (GREEN 🟢)
+3. **Refactor** while keeping tests green (♻️)
+4. **Commit** with clear TDD phase indicators
+
+**NO CODE should be written before tests exist.** This ensures:
+- Code meets requirements from the start
+- Tests drive design decisions
+- High test coverage by default
+- Fewer bugs reach production
+- Clear acceptance criteria validation
+
 **Delivery Flow:**
 ```
 Delivery Manager (12)
-    ↓ assigns story
+    ↓ assigns story with acceptance criteria
 Frontend/Backend/Full-Stack Developer (20-22)
-    ↓ implements & tests
+    ↓ writes tests FIRST (RED)
+    ↓ implements code to pass tests (GREEN)
+    ↓ refactors (keeping tests green)
     ↓ (may consult specialists 1-11, 13-19)
-    ↓ completes story
+    ↓ completes story with passing tests
 Delivery Manager (12)
     ↓ verifies & assigns next story
 (repeat)
@@ -634,15 +652,23 @@ create_file("projects/calculator-app/.github/workflows/deploy.yml", [workflow co
 
 #### Tool Usage Pattern
 
-Implementation roles should follow this pattern:
+Implementation roles should follow this **TDD pattern**:
 
 1. **Receive story assignment** from Delivery Manager
 2. **Read story details** from `docs/work/features/[id]/stories/[id]-story.md`
-3. **Determine file to create/modify** (e.g., `projects/app/src/components/Button.jsx`)
-4. **Write the code** (thinking through the logic)
-5. **Use `create_file` tool** with full path and code
-6. **Update story audit log** with progress
-7. **Commit changes** to git
+3. **Extract acceptance criteria** - these become test cases
+4. **Write tests FIRST** using `create_file` tool (e.g., `projects/app/tests/Button.test.js`)
+5. **Run tests** - they should FAIL (RED 🔴)
+6. **Write minimal code** using `create_file` tool to make tests pass (e.g., `projects/app/src/components/Button.jsx`)
+7. **Run tests** - they should PASS (GREEN 🟢)
+8. **Refactor code** while keeping tests green (♻️)
+9. **Update story audit log** with progress
+10. **Commit changes** to git with TDD phase indicators
+
+**Example commit messages:**
+- `"Add tests for user authentication - Story 00042 (TDD RED)"`
+- `"Implement user authentication - Story 00042 (TDD GREEN)"`
+- `"Refactor auth module for clarity - Story 00042 (TDD REFACTOR)"`
 
 ### Git Strategy
 
