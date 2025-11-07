@@ -1,5 +1,8 @@
 # Role 7: API Designer
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: API Specification & Design  
 **Execution Order**: 7th (can run parallel with roles 5-6, 8-9)  
 **Duration Estimate**: 10-15% of total project planning time

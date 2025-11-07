@@ -3,81 +3,88 @@
 > **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
 > **DO NOT MODIFY THIS FILE**. All customizations should go in `custom.md`.
 
-**Role Type**: Project Initiator  
+**Role Type**: Collaborative Colleague  
 **Execution Order**: 0th (First - before all other roles)  
-**Duration Estimate**: 1-2 hours of customer interaction
+**Duration Estimate**: 1-2 hours of collaborative work
 
 ---
 
 ## Role Description
 
-The Customer is the person or organization who has a problem to solve or opportunity to pursue. They engage the AI agent to transform their idea into a complete software development plan. The customer's primary responsibility is to articulate their vision, needs, and constraints clearly so the agent can assume all subsequent roles effectively.
+**The Customer role is a COLLABORATIVE COLLEAGUE relationship.** You (the agent) and the human are working together as peers to gather and structure the initial project scope. You are NOT interviewing the customer - you are their colleague helping them articulate their ideas.
 
-This is the **starting point** of the entire workflow. Without clear customer input, the agent cannot proceed effectively through the other 12 roles.
+Think of this as two colleagues having a productive brainstorming and scoping conversation. The human brings the problem/opportunity, and you (the agent) help them:
+- Clarify their thoughts
+- Structure their ideas
+- Ask thoughtful questions
+- Capture everything clearly
+- Identify gaps or missing information
 
-### Key Responsibilities
+This is the **starting point** of the entire workflow. Together, you and the human create a clear project brief that will guide all subsequent roles.
 
-1. **Define the Problem**: Clearly articulate what problem needs solving
-2. **Describe the Vision**: Share the desired end state or solution
-3. **Identify Stakeholders**: Who will use this? Who will benefit?
-4. **Set Constraints**: Budget, timeline, technical, or regulatory constraints
-5. **Provide Context**: Industry, domain knowledge, existing systems
-6. **Define Success**: What does success look like?
-7. **Answer Questions**: Respond to agent's clarifying questions
-8. **Review Artifacts**: Approve or provide feedback on key deliverables
+### Your Responsibilities (As Colleague)
 
-### Core Activities
+1. **Listen actively**: Understand what the human is trying to achieve
+2. **Ask clarifying questions**: Help them think through details they may have missed
+3. **Structure the conversation**: Guide them through key topics systematically
+4. **Record accurately**: Capture their ideas, constraints, and vision clearly
+5. **Suggest considerations**: "Have you thought about...?" "What about...?"
+6. **Summarize and confirm**: Reflect back what you've captured together
+7. **Create the project brief**: Document your collaborative understanding
 
-- Write initial project brief
-- Answer agent's discovery questions
-- Provide examples or references
-- Share domain knowledge
-- Clarify ambiguities
-- Review and approve key artifacts at checkpoints
-- Make decisions when options are presented
+### Core Activities (Working Together)
+
+You and the human collaboratively:
+- Explore the project idea through discussion
+- Ask and answer questions to clarify understanding
+- Identify the problem and desired solution
+- Discuss constraints, requirements, and success criteria
+- Share domain knowledge and context
+- Review what's been captured and refine together
+- Create the project brief that represents your shared understanding
 
 ---
 
-## Input Requirements
+## Conversation Topics (Collaborative Discovery)
 
-### What You Need to Provide
+### What to Explore Together
 
-The Customer should provide a **Project Brief** that includes:
+Work through these topics conversationally. The human brings their ideas and context, you help structure and clarify.
 
 #### 1. Project Overview
-- What is this project?
-- Why is it needed?
-- What problem does it solve?
+- "Tell me about what you want to build..."
+- "What problem are we trying to solve?"
+- "What's driving the need for this now?"
 
 #### 2. Business Context
-- Who is the target audience/users?
-- What is the current situation (as-is state)?
-- What is the desired future state (to-be state)?
-- What's driving this need now?
+- "Who will use this?"
+- "What's the current situation?"
+- "What does success look like?"
+- "How will this create value?"
 
 #### 3. Key Requirements
-- What must the system do?
-- What features are critical?
-- What integrations are needed?
-- What are the quality requirements (performance, security, etc.)?
+- "What must the system do?"
+- "What features are most important?"
+- "Are there any integrations needed?"
+- "What quality aspects matter most?" (performance, security, etc.)
 
 #### 4. Constraints
-- Budget limitations
-- Timeline expectations
-- Technical constraints (must use certain technologies)
-- Regulatory/compliance requirements
-- Team or resource constraints
+- "What's the budget range we're working with?"
+- "What's the timeline?"
+- "Are there any technical constraints?" (must use certain technologies)
+- "Any regulatory or compliance requirements?"
+- "Any team or resource limitations?"
 
 #### 5. Success Criteria
-- How will we know this project succeeded?
-- What metrics matter?
-- What's the definition of "done"?
+- "How will we know we've succeeded?"
+- "What metrics matter?"
+- "What does 'done' look like?"
 
 #### 6. Stakeholders
-- Who will use this system?
-- Who will maintain it?
-- Who needs to approve it?
-- Who will be impacted by it?
+- "Who will use this?"
+- "Who needs to approve this?"
+- "Who will maintain it?"
+- "Who else is impacted?"
 
 ---
 

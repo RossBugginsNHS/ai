@@ -7,10 +7,12 @@ A workflow system that transforms customer conversations into comprehensive soft
 ### For New Projects
 
 1. **Start a conversation** with the agent
-2. The agent will introduce itself by role (and persona name if customized)
-3. Share your project idea and answer clarifying questions
-4. The agent creates a project brief and begins working through roles
-5. When a role completes, decide if you want to continue or handover to a new chat context
+2. The agent introduces itself as your colleague (Customer Intake role)
+3. Work together collaboratively to scope your project
+4. The agent helps you clarify and structure your ideas
+5. Together you create a project brief
+6. The agent then transitions through specialist roles (1-12)
+7. Decide if you want to continue or handover to a new chat context
 
 ### For Continuing Projects
 
@@ -25,7 +27,7 @@ A workflow system that transforms customer conversations into comprehensive soft
 
 | Role | Name | Purpose |
 |------|------|---------|
-| 0 | Customer Intake | Gather project requirements through conversation |
+| 0 | Customer Intake | Work as colleagues to scope the project together |
 | 1 | Business Analyst | Analyze business needs and stakeholders |
 | 2 | Requirements Engineer | Define functional and non-functional requirements |
 | 3 | System Architect | Design system architecture and tech stack |
@@ -72,6 +74,9 @@ agentmd/
 ### 🗣️ Conversational Interface
 No need to write a project brief manually. Just talk to the agent about your idea.
 
+### 🎯 Customizable Behavior
+Personalize the agent through `/agent-custom.md` and role-specific `custom.md` files.
+
 ### 📝 Comprehensive Artifacts
 50+ detailed documents covering every aspect of software development planning.
 
@@ -87,6 +92,27 @@ All times use UTC in `yyyyMMdd-HHmm` format for consistency.
 ### 🔒 Version Control
 Automatic git commits at role transitions.
 
+## Customization
+
+### Global Customizations (`/agent-custom.md`)
+
+Customize the agent's behavior for your organization:
+- Preferred technologies and frameworks
+- Organizational standards and constraints
+- Communication preferences
+- Compliance requirements
+- Budget and resource limitations
+
+### Role-Specific Customizations (`docs/roles/*/custom.md`)
+
+Each role can be customized with:
+- Persona names for more engaging interactions
+- Role-specific preferences and standards
+- Custom templates and examples
+- Industry-specific guidelines (e.g., healthcare, finance)
+
+**Note**: The core instructions in `agent.md` and role `default.md` files are READ-ONLY. All customizations go in the appropriate `custom.md` files.
+
 ### 🎭 Role Personas
 Each role can have a custom persona name for more engaging interactions.
 
@@ -95,12 +121,18 @@ Each role can have a custom persona name for more engaging interactions.
 ### Example 1: Quick Session (1-2 Roles)
 
 ```
-Customer: Hi, I want to build a task management app
-Agent: [Greets, asks clarifying questions]
-Agent: [Creates project brief in docs/artifacts/00-customer/]
-Agent: [Becomes Business Analyst, creates artifacts]
+Human: Hi, I want to build a task management app
+Agent (as Colleague): Great! Let's work together to scope this out. Tell me more about 
+                       what you're envisioning - what problem are you trying to solve?
+Human: Our team struggles to track tasks across multiple projects...
+Agent: I see. So we're looking at multi-project task management. Have you thought about 
+       how many users? What's most important - simplicity or advanced features?
+Human: [Discussion continues - working together to clarify scope]
+Agent: Perfect. I've captured what we discussed in the project brief. 
+       Now I'll switch to Business Analyst role to analyze the business needs...
+Agent (as Business Analyst): [Creates business analysis artifacts]
 Agent: "I've completed the Business Analyst role. Ready to switch to Requirements Engineer?"
-Customer: Yes, prepare handover
+Human: Yes, prepare handover
 Agent: [Creates handover, commits changes]
 Agent: "Handover ready. Start new chat when ready."
 ```
@@ -113,7 +145,7 @@ Agent: [Checks docs/handovers/handover.md]
 Agent: "I found a handover from Business Analyst role completed on 2025-11-07 14:30 UTC.
        We analyzed the business requirements for your task management app.
        Ready to continue with Requirements Engineer role?"
-Customer: Yes, let's continue
+Human: Yes, let's continue
 Agent: [Archives handover, begins Requirements Engineer role]
 ```
 

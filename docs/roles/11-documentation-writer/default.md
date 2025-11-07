@@ -1,5 +1,8 @@
 # Role 11: Documentation Writer
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: Documentation & Knowledge Management  
 **Execution Order**: 11th  
 **Duration Estimate**: 8-10% of total project planning time

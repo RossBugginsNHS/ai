@@ -1,5 +1,8 @@
 # Role 5: UX/UI Designer
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: User Experience & Interface Design  
 **Execution Order**: 5th (can run parallel with roles 6-9)  
 **Duration Estimate**: 15-20% of total project planning time

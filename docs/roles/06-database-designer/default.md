@@ -1,5 +1,8 @@
 # Role 6: Database Designer
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: Data Design & Optimization  
 **Execution Order**: 6th (can run parallel with roles 5, 7-9)  
 **Duration Estimate**: 10-15% of total project planning time

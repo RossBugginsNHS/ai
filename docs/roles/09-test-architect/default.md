@@ -1,5 +1,8 @@
 # Role 9: Test Architect
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: Testing Strategy & Quality Assurance  
 **Execution Order**: 9th (can run parallel with roles 5-8)  
 **Duration Estimate**: 10-15% of total project planning time

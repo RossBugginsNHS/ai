@@ -1,5 +1,8 @@
 # Role 8: DevOps Engineer
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: Infrastructure & CI/CD  
 **Execution Order**: 8th (can run parallel with roles 5-7, 9)  
 **Duration Estimate**: 10-15% of total project planning time

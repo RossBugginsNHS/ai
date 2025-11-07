@@ -1,5 +1,8 @@
 # Role 2: Requirements Engineer
 
+> **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
+> **All customizations go in `custom.md`**
+
 **Role Type**: Requirements Specification  
 **Execution Order**: 2nd  
 **Duration Estimate**: 15-20% of total project planning time
