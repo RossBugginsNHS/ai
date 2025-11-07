@@ -65,11 +65,12 @@ The work tracking system provides **structured feature and story management** fo
 ```
 docs/work/
 ├── README.md                        # Work tracking overview
+├── work-item-registry.md            # Central ID registry (source of truth)
 ├── assignments.md                   # Current active assignments
 ├── recently-changed.md              # Last 30 days of activity
 ├── templates/                       # Feature and story templates
-│   ├── feature-template.md
-│   └── story-template.md
+│   ├── feature.md
+│   └── user-story.md
 ├── backlog/                         # Future work items
 │   └── [id]-[name].md
 └── features/                        # Active and completed features
@@ -85,7 +86,17 @@ docs/work/
         └── [id]-[name]/
 ```
 
-### ID Format
+### ID Format and Registry
+
+**🔴 CRITICAL: All work items MUST be registered in `docs/work/work-item-registry.md`**
+
+**ID Assignment Process:**
+
+1. **Check registry** (`docs/work/work-item-registry.md`) for highest ID
+2. **Increment by 1** for your new item
+3. **Add entry to registry** immediately
+4. **Create the work item file**
+5. **Commit both files together**
 
 **All work items use unique numeric IDs:**
 
@@ -93,6 +104,7 @@ docs/work/
 - 5 digits, zero-padded
 - Sequential (though gaps are okay)
 - Globally unique across features and stories
+- **Registry is source of truth** for ID allocation
 
 **File naming:**
 - Features: `[id]-[kebab-case-name]/`
@@ -102,6 +114,10 @@ docs/work/
 - `00001-user-authentication/` - Feature folder
 - `00042-story.md` - Story file
 - `00123-shopping-cart/` - Another feature
+
+**Templates available:**
+- `docs/work/templates/feature.md` - Feature template
+- `docs/work/templates/user-story.md` - User story template
 
 ---
 
