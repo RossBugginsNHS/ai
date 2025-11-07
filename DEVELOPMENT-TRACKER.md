@@ -73,6 +73,84 @@
 
 ## 📝 Notes & Decisions
 
+### Architecture & Design Principles (2025-11-07)
+
+Comprehensive set of 42 principles to guide all projects:
+
+#### Core Methodologies
+1. **Test Driven Development (TDD)** - Tests before code, always
+2. **Domain Driven Design (DDD)** - Model the business domain
+3. **API-First Design** - Design APIs before implementation
+4. **Security by Design** - Security from the start, not bolted on later
+5. **Shift Left** - Fail fast, catch issues early
+6. **12-Factor App Principles** - For portable, cloud-agnostic applications
+
+#### System Architecture
+7. **Event Driven Architecture** - Asynchronous, decoupled communication
+8. **Microservices** - Clear service boundaries
+9. **Clear Separation of Concerns** - Each component has one responsibility
+10. **Idempotency** - Operations can be safely retried
+11. **Eventual Consistency** - Embrace it in distributed systems
+12. **Backward Compatibility** - Versioning strategy for APIs and events
+
+#### Infrastructure & Deployment
+13. **CI/CD Pipeline** - Integrated with GitHub
+14. **Infrastructure as Code** - Everything versioned and reproducible
+15. **Cloud Provider Agnostic** - Design for portability (ask: AWS/Azure/GCP, but ensure Docker Compose/local alternatives)
+16. **Local Development Parity** - Must be able to test and deploy locally
+17. **Dev/Prod Parity** - Environments should be as similar as possible
+18. **Publishable Artifacts** - Build once, deploy many times
+19. **Container Orchestration** - Ask preference (Kubernetes, Docker Swarm, Docker Compose)
+
+#### Quality & Security
+20. **Automated Security Scanning** - SAST/DAST in CI/CD (OWASP, STRIDE)
+21. **Code Quality Gates** - Linting, formatting, complexity checks in CI/CD
+22. **Dependency Management** - Regular updates, vulnerability scanning
+23. **Observability** - Logging, metrics, tracing from day one
+
+#### Data & State Management
+24. **Database Migrations** - Versioned, reversible, testable
+25. **Data Privacy by Design** - GDPR compliance, data minimization
+26. **Message Broker Strategy** - Ask preference (Kafka, RabbitMQ, cloud-native)
+27. **API Gateway Strategy** - Ask preference (centralized gateway, service mesh, none)
+28. **Configuration Management** - Ask how to handle secrets/config across environments
+
+#### Documentation Standards
+29. **Use Mermaid for Diagrams** - All diagrams in Mermaid format
+30. **Use Markdown** - All documentation in Markdown
+31. **Code Blocks Must Specify Language** - Always include language identifier
+32. **Architecture Decision Records (ADRs)** - Document why decisions were made
+33. **README-Driven Development** - Document before building
+34. **OpenAPI/AsyncAPI Specifications** - For REST and event-driven APIs
+35. **Changelog Maintenance** - Keep CHANGELOG.md up to date
+
+#### Technology Choices
+36. **Always Ask About Tech Stack** - Language, frameworks, specific versions
+37. **Never Assume** - If unsure, ask; then suggest if needed
+38. **Ask About Hosting** - AWS, Azure, GCP, on-premise, or hybrid
+
+#### Development Practices
+39. **Monorepo Structure** - All projects in `/projects` with consistent structure
+40. **Trunk-Based Development** - Or short-lived feature branches
+41. **Semantic Versioning** - Clear version numbering
+42. **Feature Flags** - Toggle features without deployment
+
+### Customization System (2025-11-07)
+Three-tier hierarchy:
+1. Core behavior: agent.md + role default.md (READ-ONLY)
+2. Global customizations: agent-custom.md (EDITABLE)
+3. Role customizations: role custom.md (EDITABLE)
+
+### Collaborative Colleague Model (2025-11-07)
+Customer role (Role 0) operates as peer colleague, not interviewer.
+Natural conversation, working together to scope projects.
+
+---
+
+---
+
+## 📝 Notes & Decisions
+
 ### Architecture Principles (2025-11-07)
 Decided on 42 core principles covering:
 - TDD, DDD, API-First, Security by Design
