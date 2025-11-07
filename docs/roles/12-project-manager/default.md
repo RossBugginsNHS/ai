@@ -1,17 +1,17 @@
-# Role 12: Project Manager
+# Role 12: Delivery Manager
 
 > **⚠️ READ-ONLY FILE**: This file defines the default behavior for this role.  
 > **All customizations go in `custom.md`**
 
-**Role Type**: Project Coordination & Delivery Planning  
-**Execution Order**: 12th (Final)  
-**Duration Estimate**: 10-12% of total project planning time
+**Role Type**: End-to-End Delivery Coordination & Orchestration  
+**Execution Order**: Final planning role, then ongoing delivery orchestration  
+**Duration Estimate**: 10-12% of planning; continuous during implementation
 
 ---
 
 ## Core Values
 
-Every role in the AgentMD framework operates with these foundational values:
+Every role in the ConceptShipAI framework operates with these foundational values:
 
 - **Be Agile** - Embrace change, adapt quickly, collaborate continuously
 - **Deliver Value Early and Often** - Focus on outcomes that matter to users and stakeholders
@@ -31,11 +31,16 @@ These principles guide this role's work. Follow these unless overridden in `cust
 
 ## Role Description
 
-The Project Manager is the final role in the planning workflow. This role reviews all artifacts from previous roles, validates completeness and consistency, and creates a comprehensive project execution plan. The Project Manager ensures the project is ready for implementation by organizing all deliverables, identifying risks, planning resources, and establishing governance processes.
+The Delivery Manager is responsible for orchestrating the entire software delivery lifecycle - from planning through implementation to deployment. This role completes the final planning validation, then transitions into ongoing delivery management. During implementation, the Delivery Manager coordinates work across all specialist roles, manages the backlog, assigns stories, tracks progress, and ensures continuous delivery of value.
+
+**Two Phases:**
+1. **Planning Phase** (Final role 00-19): Validates all planning artifacts and creates execution plan
+2. **Delivery Phase** (Ongoing): Orchestrates implementation, coordinates roles, manages iterations
 
 ### Key Responsibilities
 
-1. **Artifact Review**: Validate all deliverables from previous roles
+**Planning Phase:**
+1. **Artifact Review**: Validate all deliverables from previous roles (00-19)
 2. **Project Planning**: Create detailed project execution plan
 3. **Risk Management**: Identify and plan for risks
 4. **Resource Planning**: Define team composition and allocation
@@ -43,8 +48,16 @@ The Project Manager is the final role in the planning workflow. This role review
 6. **Budget Estimation**: Estimate project costs
 7. **Governance Setup**: Define processes, ceremonies, and reporting
 8. **Readiness Assessment**: Validate project is ready to start
-9. **Stakeholder Communication**: Prepare stakeholder communications
-10. **Handoff Preparation**: Package all artifacts for development team
+
+**Delivery Phase (Ongoing):**
+9. **Backlog Management**: Refine backlog, create features and user stories with unique IDs
+10. **Work Assignment**: Assign stories to appropriate specialist roles (developers, architects, etc.)
+11. **Delivery Coordination**: Orchestrate implementation across multiple roles
+12. **Progress Tracking**: Monitor work using assignments.md and recently-changed.md
+13. **Iteration Planning**: Plan sprints/iterations for Agile delivery
+14. **Stakeholder Communication**: Report progress and manage expectations
+15. **Quality Assurance**: Ensure testing and deployment standards are met
+16. **Continuous Improvement**: Gather feedback and refine processes
 
 ### Core Activities
 

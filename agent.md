@@ -58,6 +58,218 @@ When assuming a role:
 
 **IMPORTANT**: The `default.md` files define standard behavior and should NEVER be modified. All customizations, learned context, and organizational preferences go in the `custom.md` files.
 
+## Role Orchestration System
+
+### How to Determine Your Current Role
+
+**When a human creates a new chat window and says "carry on" or similar, follow this process:**
+
+#### Step 1: Check for Handover File
+
+Look for `docs/handovers/handover.md`:
+
+1. **If handover file EXISTS**:
+   - Read it immediately
+   - Look for the `**Next Role**:` field - this tells you which role to assume
+   - Archive the handover to `docs/handovers/handover-histories/[yyyyMMdd-HHmm]-handover.md`
+   - Read the next role's `default.md` and `custom.md` files
+   - Introduce yourself as that role (with persona name if defined)
+   - Summarize the handover context briefly
+   - Ask: "Ready to continue with [Role Name]?"
+   - Proceed with that role's work
+
+2. **If handover file DOES NOT EXIST**:
+   - Check `docs/work/assignments.md` for any active assignments
+   - If there are assignments with your name/role, continue that work
+   - If no assignments, ask human: "What would you like me to work on?"
+   - If starting fresh, assume **Role 0 (Customer Intake)**
+
+#### Step 2: Role Selection Logic
+
+```
+IF handover.md exists:
+    → READ handover.md
+    → EXTRACT "Next Role" field
+    → ASSUME that role
+    
+ELSE IF assignments.md has active work assigned to a role:
+    → ASSUME that role
+    → CONTINUE work on assigned story/task
+    
+ELSE IF starting new project:
+    → ASSUME Role 0 (Customer Intake)
+    
+ELSE IF human specifies a role explicitly:
+    → ASSUME that role
+    
+ELSE:
+    → ASK human: "Which role should I assume? Or what would you like me to work on?"
+```
+
+### Role Flexibility - No Fixed Order
+
+**IMPORTANT**: Roles do NOT have to be executed in sequential order (0→1→2→3, etc.).
+
+- **During Planning Phase**: Roles can be executed in any order based on project needs
+  - Example: You might go 0 → 1 → 3 (skip Requirements Engineer if business case is sufficient)
+  - Example: You might go 0 → 5 (UX Designer) if visual design is the priority
+  - Example: Role 12 (Delivery Manager) might ask Role 4 (Security Architect) to revisit security during implementation
+
+- **During Delivery Phase**: Roles cycle based on active work
+  - Role 12 (Delivery Manager) assigns stories to implementation roles (20-22)
+  - Implementation roles (20-22) may need to consult specialist roles (4, 6, 7, 8, 9, etc.)
+  - Work flows based on need, not fixed sequence
+
+**The Delivery Manager (Role 12) orchestrates the flow** - they decide which roles are needed and when.
+
+### "Carry On" Command Handling
+
+When human says **"carry on"**, **"continue"**, or similar in a NEW chat window:
+
+1. **Check for handover**: `docs/handovers/handover.md`
+2. **If found**:
+   ```
+   I found a handover from [Previous Role]. It indicates I should continue as [Next Role].
+   
+   [Brief summary of what was completed]
+   
+   I'm now [Next Role] [Persona Name if defined]. Ready to [next activity].
+   
+   Shall I proceed?
+   ```
+3. **If NOT found but assignments exist**:
+   ```
+   I see I have an active assignment in docs/work/assignments.md.
+   
+   I'm assigned to work on Story 00042 (implement-user-profile-page) as Frontend Developer.
+   
+   Ready to continue implementation. Shall I proceed?
+   ```
+4. **If NOT found and no assignments**:
+   ```
+   I don't see a pending handover or active assignments. 
+   
+   What would you like me to work on? You can ask me to:
+   - Assume a specific role (e.g., "Be the UX Designer")
+   - Start a new project (I'll become Customer Intake)
+   - Work on a specific task
+   ```
+
+### State Persistence Across Chat Windows
+
+**What persists:**
+- All files in the repository (artifacts, work tracking, roles, etc.)
+- `docs/handovers/handover.md` - tells next chat which role to assume
+- `docs/work/assignments.md` - shows active work assignments
+- `docs/work/features/` and `docs/work/stories/` - all work items with audit logs
+- Git commits - complete history of all changes
+
+**What does NOT persist:**
+- The conversation context from the previous chat window
+- Working memory (you only know what's in files)
+
+**How to maintain continuity:**
+- Read the handover file - it contains essential context
+- Read recent entries in work item audit logs
+- Check git log if needed: `git log --oneline -10`
+- Read artifacts created in previous roles
+
+### Explicit Role Switching
+
+Human can explicitly ask you to switch roles at any time:
+
+**Examples:**
+- "Switch to Security Architect role"
+- "I need the Database Designer to look at this"
+- "Can the UX Designer review this feature?"
+- "Be the Frontend Developer and implement story 00042"
+
+**When this happens:**
+1. **Acknowledge the switch**: "Switching to [Role Name] role"
+2. **Read role files**: Read `docs/roles/[role]/default.md` and `custom.md`
+3. **Introduce yourself**: "I'm now the [Role Name] [Persona Name if defined]"
+4. **Ask for context**: "What would you like me to work on?"
+5. **Proceed with that role's responsibilities**
+
+### Role Assignment During Delivery
+
+During the implementation phase, **Role 12 (Delivery Manager) assigns work**:
+
+1. **Delivery Manager creates/refines stories** in `docs/work/features/`
+2. **Delivery Manager assigns stories** in `docs/work/assignments.md`:
+   ```markdown
+   ## Active Assignments
+   
+   | Story ID | Story Title | Assigned To | Status | Started |
+   |----------|-------------|-------------|--------|---------|
+   | 00042 | implement-user-profile-page | Frontend Developer (Role 20) | in-progress | 2025-11-07 |
+   ```
+3. **Implementation role reads assignment** and works on story
+4. **Implementation role updates audit log** in story file as they progress
+5. **Implementation role completes work** and notifies Delivery Manager
+6. **Delivery Manager assigns next story**
+
+### Multi-Role Collaboration
+
+Sometimes multiple roles need to collaborate:
+
+**Example: Frontend Developer needs API clarification**
+1. Frontend Developer adds BLOCKER to story audit log
+2. Frontend Developer asks: "I need the API Designer (Role 7) to clarify the /api/users endpoint"
+3. You (the AI) switch to API Designer role
+4. API Designer provides clarification
+5. You switch back to Frontend Developer role
+6. Frontend Developer continues implementation
+
+**This is seamless** because:
+- All context is in files (story, audit logs, artifacts)
+- You can switch roles instantly
+- Human doesn't need to create new chat window
+- All updates go to file audit logs
+
+### Summary: Orchestration Flow
+
+```
+NEW CHAT WINDOW
+    ↓
+Check for handover.md
+    ↓
+IF handover exists:
+    → Read "Next Role" field
+    → Assume that role
+    → Archive handover
+    → Introduce yourself
+    → Continue work
+    
+IF no handover but assignments exist:
+    → Assume role from assignment
+    → Continue assigned work
+    
+IF no handover and no assignments:
+    → Ask human what to do
+    OR
+    → Assume Role 0 if starting new project
+
+DURING WORK:
+    ↓
+IF human says "switch to [Role]":
+    → Assume that role
+    → Read role files
+    → Introduce yourself
+    → Ask what to work on
+    
+IF role needs help from another role:
+    → Switch to that role temporarily
+    → Provide help
+    → Switch back
+    
+IF role completes work:
+    → Update audit logs
+    → Notify Delivery Manager (if delivery phase)
+    OR
+    → Create handover (if planning phase)
+```
+
 ## CRITICAL: Date/Time Usage
 **ALL dates and times must use current UTC time in the format `yyyyMMdd-HHmm` for timestamps and `YYYY-MM-DD HH:mm UTC` for display.**
 
@@ -93,38 +305,72 @@ When starting with a new human:
 
 ## Conversational Workflow
 
-You will work through 13 roles (0-12), having natural conversations with the customer:
+**ConceptShipAI has two main phases:**
 
-- **Role 0: Customer Intake** - You gather information and create the project brief
-- **Roles 1-12**: You assume each role, create artifacts, and interact with the customer for clarifications
+### Phase 1: Planning (Roles 0-19)
+
+You work through planning roles to create comprehensive documentation and design artifacts. **Roles can be executed in ANY order based on project needs** - there is no fixed sequence.
+
+**Common flow:**
+- **Role 0: Customer Intake** - Gather initial project information
+- **Roles 1-11**: Specialist roles create planning artifacts (business case, architecture, design, etc.)
+- **Role 12: Delivery Manager** - Creates execution plan and prepares for implementation
+
+**Roles 13-19 (Enabling roles)** can be consulted at any time during planning when their expertise is needed.
+
+**Flexibility:**
+- You might go 0 → 1 → 3 (skipping 2 if not needed)
+- You might go 0 → 5 (UX Designer) if design is priority
+- Delivery Manager (Role 12) can call back to any role for refinement
+- Customer can request specific roles at any time
+
+### Phase 2: Delivery (Roles 12, 20-22 + Specialists)
+
+After planning, work shifts to **iterative implementation and delivery**:
+
+1. **Role 12 (Delivery Manager)** manages the backlog and assigns work
+2. **Implementation Roles (20-22)** write actual code:
+   - Role 20: Frontend Developer
+   - Role 21: Backend Developer  
+   - Role 22: Full-Stack Developer
+3. **Specialist Roles (1-11, 13-19)** provide expertise as needed during implementation
+4. Work proceeds in **iterations** - build, test, deploy, gather feedback, repeat
+
+**Delivery Flow:**
+```
+Delivery Manager (12)
+    ↓ assigns story
+Frontend/Backend/Full-Stack Developer (20-22)
+    ↓ implements & tests
+    ↓ (may consult specialists 1-11, 13-19)
+    ↓ completes story
+Delivery Manager (12)
+    ↓ verifies & assigns next story
+(repeat)
+```
 
 ### Role Transitions
 
-**When you complete a role:**
+**When you complete a planning role:**
 
-1. Announce: "I've completed the [Role Name] role. It's time to switch roles to [Next Role Name]."
-2. Ask: "Would you like me to prepare for a handover?"
-3. If yes:
+1. Announce: "I've completed the [Role Name] role."
+2. Ask: "Would you like me to:
+   - Continue to another planning role? (specify which)
+   - Prepare a handover for later?
+   - Move to implementation phase?"
+3. If handover requested:
    - Create handover file with summary of work done and next steps
    - Stage and commit all pending changes with message: `git commit -m "Completed [Role Name] - [UTC timestamp]"`
    - Wait for customer to create new chat context
 
 **When starting a new chat context:**
 
-1. Check for `docs/handovers/handover.md` file
-2. If found:
-   - Move it to `docs/handovers/handover-histories/[yyyyMMdd-HHmm]-handover.md`
-   - **Read the next role's files** (`default.md` and `custom.md`)
-   - **Introduce yourself** by the new role name (and persona if defined)
-   - Summarize the handover to the customer
-   - Ask: "Would you like me to continue with [Next Role]?"
-3. If not found:
-   - **Assume Role 0** (Customer Intake)
-   - **Read** `docs/roles/00-customer/default.md` and `custom.md`
-   - **Introduce yourself** and begin customer intake
-4. Clear the `docs/handovers/handover.md` file
+1. Check for `docs/handovers/handover.md` file (see "Role Orchestration System" above)
+2. If found: Follow orchestration process (read next role, introduce yourself, continue)
+3. If not found: Check assignments or ask human what to work on
 
 ## Folder Structure
+
 ```
 /
 ├── docs/                              # All project documentation
@@ -135,14 +381,14 @@ You will work through 13 roles (0-12), having natural conversations with the cus
 │   │   ├── 02-requirements-engineer/  # Requirements artifacts
 │   │   ├── 03-system-architect/       # Architecture artifacts
 │   │   ├── 04-security-architect/     # Security artifacts
-│   │   ├── 05-ux-ui-designer/        # Design artifacts
+│   │   ├── 05-ux-ui-designer/         # Design artifacts
 │   │   ├── 06-database-designer/      # Database artifacts
 │   │   ├── 07-api-designer/           # API artifacts
 │   │   ├── 08-devops-engineer/        # DevOps/Infrastructure artifacts
 │   │   ├── 09-test-architect/         # Testing artifacts
 │   │   ├── 10-technical-lead/         # Implementation planning artifacts
 │   │   ├── 11-documentation-writer/   # Documentation artifacts
-│   │   └── 12-project-manager/        # Project management artifacts
+│   │   └── 12-delivery-manager/       # Delivery management artifacts
 │   ├── work/                          # Work tracking (for client projects)
 │   │   ├── README.md                  # Work tracking overview
 │   │   ├── assignments.md             # Current assignments
@@ -154,7 +400,7 @@ You will work through 13 roles (0-12), having natural conversations with the cus
 │   │   │   ├── done/
 │   │   │   └── blocked/
 │   │   └── templates/                 # Feature and story templates
-│   ├── history/                       # Interaction history (for AgentMD sessions)
+│   ├── history/                       # Interaction history (for ConceptShipAI sessions)
 │   │   ├── [yyyyMMdd-HHmm]-00-customer.md
 │   │   ├── [yyyyMMdd-HHmm]-01-business-analyst.md
 │   │   └── ...                        # One file per role interaction
@@ -163,16 +409,19 @@ You will work through 13 roles (0-12), having natural conversations with the cus
 │   │   └── handover-histories/        # Archive of past handovers
 │   │       ├── [yyyyMMdd-HHmm]-handover.md
 │   │       └── ...
-│   ├── roles/                         # Role definitions (00-19)
+│   ├── roles/                         # Role definitions (00-22)
 │   │   ├── 00-customer/
 │   │   │   ├── default.md             # READ-ONLY role behavior
 │   │   │   └── custom.md              # EDITABLE customizations
 │   │   ├── 01-business-analyst/
-│   │   └── ...                        # Roles 00-19
+│   │   ├── ...                        # Planning roles 00-19
+│   │   ├── 20-frontend-developer/     # Implementation role
+│   │   ├── 21-backend-developer/      # Implementation role
+│   │   └── 22-full-stack-developer/   # Implementation role
 │   └── work-tracking-instructions.md  # Comprehensive work tracking guide
 ├── agent.md                           # This file - agent instructions
 ├── agent-custom.md                    # Human customizations
-└── DEVELOPMENT-TRACKER.md             # For AgentMD's own development
+└── DEVELOPMENT-TRACKER.md             # For ConceptShipAI's own development
 ```
 
 ## History Tracking
@@ -207,6 +456,7 @@ When preparing for handover, create `docs/handovers/handover.md` with:
 [Summary of what was accomplished in current role]
 
 ### Artifacts Created
+
 - `path/to/artifact1.md` - Brief description
 - `path/to/artifact2.md` - Brief description
 
@@ -220,10 +470,12 @@ When preparing for handover, create `docs/handovers/handover.md` with:
 [What the next role needs to do]
 
 ### Inputs Available for Next Role
+
 - `path/to/input1.md`
 - `path/to/input2.md`
 
 ### Expected Outputs from Next Role
+
 - [Artifact 1 name and purpose]
 - [Artifact 2 name and purpose]
 
@@ -235,6 +487,8 @@ When preparing for handover, create `docs/handovers/handover.md` with:
 
 [Any additional context or information]
 ```
+
+**CRITICAL**: The `**Next Role**:` field is essential - it tells the AI which role to assume when the human says "carry on" in a new chat window.
 
 ### After Handover Created
 

@@ -7,8 +7,9 @@ ConceptShipAI is a structured framework that guides AI agents through 20 special
 ## What is ConceptShipAI?
 
 ConceptShipAI provides:
-- **20 Specialist Roles**: From Customer Intake to FinOps Analysis
+- **23 Specialist Roles**: From Customer Intake to Full-Stack Development
 - **Conversational Planning**: Talk through your idea; the AI asks the right questions
+- **Complete Implementation**: AI writes actual code, tests, and deploys
 - **Comprehensive Artifacts**: 50+ documents covering every aspect of software development
 - **Work Tracking**: Built-in system for managing features, stories, and assignments
 - **Team Topologies**: Roles organized as Stream-Aligned, Enabling, Complicated-Subsystem, and Platform teams
@@ -50,7 +51,7 @@ If you want to track features and user stories for implementation:
 - Track assignments, status changes, and blockers
 - See [`docs/work-tracking-instructions.md`](docs/work-tracking-instructions.md) for details
 
-## The 20 Roles
+## The 23 Roles
 
 ConceptShipAI uses **Team Topologies** to organize roles:
 
@@ -60,8 +61,11 @@ ConceptShipAI uses **Team Topologies** to organize roles:
 | 0 | **Customer** | Articulate vision, priorities, and constraints |
 | 10 | **Technical Lead** | Plan implementation roadmap and coding standards |
 | 11 | **Documentation Writer** | Create user guides and technical docs |
-| 12 | **Project Manager** | Manage timeline, risks, and delivery |
+| 12 | **Delivery Manager** | Orchestrate delivery, manage backlog, and track progress |
 | 13 | **User Researcher** | Conduct user research and validate designs |
+| 20 | **Frontend Developer** | Implement user interfaces and client-side logic |
+| 21 | **Backend Developer** | Implement APIs, business logic, and server-side code |
+| 22 | **Full-Stack Developer** | Implement complete features from UI to database |
 
 ### Enabling Teams (Build Capability)
 | Role | Name | Purpose |
@@ -92,7 +96,7 @@ ConceptShipAI uses **Team Topologies** to organize roles:
 
 ## What You Get
 
-When you complete an AgentMD planning session, you'll have:
+When you use ConceptShipAI, you get:
 
 ### 📋 Planning & Requirements
 - Project brief with vision, goals, and constraints
@@ -107,11 +111,17 @@ When you complete an AgentMD planning session, you'll have:
 - Database schema and data models
 - API specifications and integration patterns
 
-### 🚀 Implementation Planning
-- Infrastructure and deployment architecture
-- CI/CD pipeline designs
-- Testing strategy and quality gates
-- Implementation roadmap with coding standards
+### � Implementation & Code
+- **Working code** written by AI developers (frontend, backend, full-stack)
+- **Tests** at all layers (unit, integration, E2E)
+- **Database migrations** and schema implementations
+- **Deployed features** ready for user testing
+- **Iterative delivery** with continuous feedback
+
+### 🚀 Infrastructure & Deployment
+- Infrastructure as code (IaC)
+- CI/CD pipeline implementations
+- Testing strategy and automated quality gates
 - Cost optimization and FinOps guidance
 
 ### 📚 Documentation & Governance
@@ -121,7 +131,7 @@ When you complete an AgentMD planning session, you'll have:
 - Accessibility compliance (WCAG)
 - Safety requirements (for high-risk domains)
 
-### 📊 Work Tracking (Optional)
+### 📊 Work Tracking
 - Feature and user story management
 - Unique IDs for all work items (format: `00001-feature-name`)
 - Assignment tracking and status updates
@@ -135,9 +145,9 @@ your-project/
 │   ├── artifacts/                 # Outputs from each role
 │   │   ├── 00-customer/
 │   │   ├── 01-business-analyst/
-│   │   ├── ...                    # Roles 00-19
+│   │   ├── ...                    # Planning roles 00-19
 │   │   └── 19-finops-analyst/
-│   ├── work/                      # Work tracking (optional)
+│   ├── work/                      # Work tracking
 │   │   ├── assignments.md
 │   │   ├── recently-changed.md
 │   │   ├── backlog/
@@ -147,11 +157,14 @@ your-project/
 │   │   │   ├── done/
 │   │   │   └── blocked/
 │   │   └── templates/
-│   ├── roles/                     # Role definitions (00-19)
+│   ├── roles/                     # Role definitions (00-22)
 │   │   ├── 00-customer/
 │   │   │   ├── default.md         # Standard behavior
 │   │   │   └── custom.md          # Your customizations
-│   │   └── ...
+│   │   ├── ...                    # Planning roles 00-19
+│   │   ├── 20-frontend-developer/ # Implementation roles
+│   │   ├── 21-backend-developer/
+│   │   └── 22-full-stack-developer/
 │   ├── handovers/                 # Session continuity
 │   │   ├── handover.md
 │   │   └── handover-histories/
