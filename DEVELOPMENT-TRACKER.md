@@ -17,8 +17,19 @@
 ## 📋 Todo List
 
 ### High Priority
+- [ ] Create 7 new enabling roles (13-19) with default.md and custom.md
+- [ ] Document Team Topologies classification in relevant role files
 - [ ] Document all 42 architecture principles in agent-custom.md template  
 - [ ] Create comprehensive examples for each role's outputs
+
+### New Roles to Add (Enabling Teams)
+- [ ] Role 13: User Researcher - User needs analysis, research validation
+- [ ] Role 14: Information Governance Officer - Data classification, retention, compliance
+- [ ] Role 15: Safety Officer - Domain-specific safety (clinical, financial, operational)
+- [ ] Role 16: Accessibility Specialist - WCAG compliance, inclusive design
+- [ ] Role 17: Performance Engineer - Performance requirements, optimization, SLAs
+- [ ] Role 18: Compliance Officer - Regulatory compliance, audits, certifications
+- [ ] Role 19: FinOps Analyst - Cloud cost optimization, TCO analysis, budget forecasting
 
 ### Core Framework
 - [ ] Complete all role default.md files with detailed instructions
@@ -134,6 +145,68 @@ Comprehensive set of 42 principles to guide all projects:
 41. **Semantic Versioning** - Clear version numbering
 42. **Feature Flags** - Toggle features without deployment
 
+### Team Topologies Framework (2025-11-07)
+
+AgentMD roles are organized using Team Topologies principles. This helps understand role relationships and cognitive load management.
+
+#### Four Team Types
+
+1. **Stream-Aligned Teams** - Core value delivery, aligned to business domain or user journey
+2. **Enabling Teams** - Help Stream-Aligned teams by removing blockers and building capabilities
+3. **Complicated-Subsystem Teams** - Handle complex subsystems requiring specialized expertise
+4. **Platform Teams** - Provide internal services to reduce Stream-Aligned team cognitive load
+
+#### Role Classifications (20 Total Roles)
+
+##### Stream-Aligned Teams (5 roles)
+Core delivery roles aligned to project value streams:
+- **Role 0: Customer** - Initiates projects, provides business context, validates outcomes
+- **Role 1: Business Analyst** - Analyzes business needs, defines requirements
+- **Role 2: Requirements Engineer** - Formalizes functional/non-functional requirements
+- **Role 10: Technical Lead** - Leads implementation decisions, code quality
+- **Role 12: Project Manager** - Coordinates delivery, manages timelines and risks
+
+##### Enabling Teams (11 roles)
+Specialist roles that help others succeed by reducing cognitive load:
+- **Role 4: Security Architect** - Enables secure development through threat modeling, SAST/DAST
+- **Role 5: UX/UI Designer** - Enables user-centered design and usability
+- **Role 9: Test Architect** - Enables quality through testing strategy and automation
+- **Role 11: Documentation Writer** - Enables knowledge sharing and onboarding
+- **Role 13: User Researcher** - Enables evidence-based design through user research
+- **Role 14: Information Governance Officer** - Enables data compliance and privacy
+- **Role 15: Safety Officer** - Enables domain-specific safety (clinical, financial, operational)
+- **Role 16: Accessibility Specialist** - Enables inclusive design and WCAG compliance
+- **Role 17: Performance Engineer** - Enables optimization through performance requirements and SLAs
+- **Role 18: Compliance Officer** - Enables regulatory compliance and audit readiness
+- **Role 19: FinOps Analyst** - Enables cost optimization and financial accountability
+
+##### Complicated-Subsystem Teams (3 roles)
+Specialized technical roles handling complex subsystems:
+- **Role 3: System Architect** - Complex system design, architectural patterns, service boundaries
+- **Role 6: Database Designer** - Complex data modeling, optimization, migrations
+- **Role 7: API Designer** - Complex API design, contracts, event schemas
+
+##### Platform Team (1 role - hybrid)
+Internal platform services:
+- **Role 8: DevOps Engineer** - Platform services (CI/CD, IaC, observability) + Complicated-Subsystem expertise
+
+#### Design Rationale
+
+**Why These Enabling Teams?**
+- **User Researcher**: Critical for evidence-based design; every project should validate with real users
+- **Information Governance**: Data classification, retention, privacy are cross-cutting concerns
+- **Safety Officer**: Domain-specific safety (clinical safety, financial risk) can't be an afterthought
+- **Accessibility**: WCAG compliance and inclusive design are legal requirements and ethical imperatives
+- **Performance Engineer**: Performance requirements often missed until production; needs explicit focus
+- **Compliance Officer**: Regulatory landscape (GDPR, DORA, industry-specific) requires dedicated expertise
+- **FinOps**: Cloud costs spiral without dedicated cost optimization and budget forecasting
+
+**Why Not Stream-Aligned?**
+These are cross-cutting concerns that would create excessive cognitive load if every Stream-Aligned team had to maintain expertise. Better to enable others than to duplicate effort.
+
+**Why Not Complicated-Subsystem?**
+While these roles require expertise, they're not building complex subsystems. They're providing guidance, standards, and validation to enable others.
+
 ### Customization System (2025-11-07)
 Three-tier hierarchy:
 1. Core behavior: agent.md + role default.md (READ-ONLY)
@@ -146,9 +219,7 @@ Natural conversation, working together to scope projects.
 
 ---
 
----
-
-## 📝 Notes & Decisions
+## 📝 Notes & Decisions (Historical)
 
 ### Architecture Principles (2025-11-07)
 Decided on 42 core principles covering:
