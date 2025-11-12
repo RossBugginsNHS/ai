@@ -15,7 +15,7 @@ import * as fs from 'fs';
 const program = new Command();
 
 // Default work items file path (relative to workspace root)
-const DEFAULT_WORK_ITEMS_FILE = 'docs/work/work-items.yaml';
+const DEFAULT_WORK_ITEMS_FILE = 'data/work-tracking/work-items.yaml';
 
 /**
  * Gets the work items file path from CLI args or uses default
